@@ -89,6 +89,7 @@ public class ListarColaboradores extends JFrame {
 				return columnEditables[column];
 			}
 		});
+		table.getColumnModel().getColumn(0).setPreferredWidth(53);
 		scrollPane.setViewportView(table);
 		
 		JButton btnSeleciona = new JButton("Selecionar");

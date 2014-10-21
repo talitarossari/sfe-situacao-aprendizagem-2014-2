@@ -8,7 +8,7 @@ public class Agenda {
 	private String dia;
 	private String mes;
 	private String ano;
-	private String testeSeFoi;
+	private String testeSeFoi; 
 
 	public Agenda(Sala sala, Pessoa pessoa, String horario, String dia,
 			String mes, String ano) {

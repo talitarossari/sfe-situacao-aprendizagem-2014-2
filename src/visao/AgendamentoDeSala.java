@@ -18,10 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import controle.AgendaControle;
 import modelo.Agenda;
 import modelo.Pessoa;
 import modelo.Sala;
+import Controle.AgendaControle;
 
 public class AgendamentoDeSala extends JFrame {
 

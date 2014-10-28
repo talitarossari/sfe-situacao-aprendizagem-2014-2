@@ -1,5 +1,11 @@
 package DAO;
 
-public interface AgendaDao {
-	//TODO: Implementar tudo aqui
+import modelo.Agenda;
+
+
+
+public interface AgendaDao extends dao<Agenda> {
+	
+	
+	
 }

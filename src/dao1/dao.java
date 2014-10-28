@@ -1,8 +1,8 @@
-package dao;
+package dao1;
 
 import java.util.List;
 
-public interface DAO<E> {
+public interface dao<E> {
 
 	E salvar(E e);
     void alterar(E e);

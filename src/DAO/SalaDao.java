@@ -1,4 +1,4 @@
-package dao1;
+package DAO;
 
 public interface SalaDao {
 

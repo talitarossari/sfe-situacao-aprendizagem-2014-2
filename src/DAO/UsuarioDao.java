@@ -1,5 +1,8 @@
 package DAO;
 
-public interface UsuarioDao {
+import modelo.Usuario;
 
+public interface UsuarioDao extends dao<Usuario> {
+
+	 boolean verificarUsuario(Usuario usuario);
 }

@@ -1,5 +1,6 @@
 package DAO;
 
+
 public abstract class DAOFactory {
 
 	
@@ -33,11 +34,21 @@ public abstract class DAOFactory {
 	public static SalaDao getSalaDao(){
 		
 		if(salaDAO == null){
-			salaDAO = new SalaDaoImp()
+			salaDAO = new SalaDaoImp();
 		}
 		return salaDAO;
 		
 	}
+	
 	private static UsuarioDao usuarioDAO;	
 	
+	public static UsuarioDao getUsuarioDAO(){
+		if(usuarioDAO == null){
+			usuarioDAO = new UsuarioDaoImp();
+		}
+		if(usuarioDAO.isConnectionClose()){
+			usuarioDAO.openConnection();
+		}
+		return usuarioDAO;
+	}
 }

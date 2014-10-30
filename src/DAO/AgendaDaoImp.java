@@ -129,7 +129,7 @@ PreparedStatement ps = null;
 		
 	}
 
-	@Override
+	@Override //terminar vetor
 	public Agenda buscarPorSala(Sala sala) {
 		List<Agenda> agendas = new ArrayList<Agenda>();
 		
@@ -144,13 +144,13 @@ PreparedStatement ps = null;
 			while (rs.next()) {
 				Agenda agenda = new Agenda();
 				
-				
-				
-				
 			}
-			
-			
-		}
+		
+	} catch (SQLException ex) {
+		Logger.getLogger(AgendaDaoImp.class.getName()).log(Level.SEVERE, null, ex);
+	} finally {
+		this.closeConnection();
+	}
 		return null;
 	}
 

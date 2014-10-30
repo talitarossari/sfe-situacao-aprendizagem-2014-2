@@ -107,10 +107,10 @@ public class UsuarioDaoImp implements UsuarioDao{
 		return usuarios;
 	} 
 	 
-	 /* public boolean verificarUsuario(Usuario usuario) {
+	 public boolean verificarUsuario(Usuario usuario) { //implementar 
 			// TODO Auto-generated method stub
 			return false;
-		} */
+		} 
 	 
 	 public boolean isConnectionClose() {
 			try {

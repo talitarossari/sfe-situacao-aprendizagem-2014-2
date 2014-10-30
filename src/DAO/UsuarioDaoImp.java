@@ -1,7 +1,18 @@
 package DAO;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/* public class UsuarioDaoImp implements UsuarioDao{
+import modelo.Usuario;
+import conexao.ConnectionManager;
+
+public class UsuarioDaoImp implements UsuarioDao{
 
 	private final String INSERT = "insert into usuario (login, senha, Pessoa_idPessoa) values (?,?,?)";
    private final String UPDATE = "update usuario set login = ?, senha = ? where idusuario = ?";
@@ -69,7 +80,7 @@ package DAO;
 		}
 	}
 	
-	/* public List<Usuario> findAll() {
+	 public List<Usuario> findAll() {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 
 		try {
@@ -83,16 +94,47 @@ package DAO;
 			while (rs.next()) {
 				Usuario usuario = new Usuario();
 				usuario.setIdUsuario(rs.getInt("idUsuario"));
-				usuario.setRegistro(rs.getString("registro"));
-				usuario.setDataa(rs.getDate("dataa"));
+				usuario.setLogin(rs.getString("login"));
+				usuario.setSenha(rs.getInt("senha"));
 				usuarios.add(usuario);
 			}
 
 		} catch (SQLException ex) {
-			Logger.getLogger(EventoDaoImp.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(UsuarioDaoImp.class.getName()).log(Level.SEVERE, null, ex);
 		} finally {
 			this.closeConnection();
 		}
-		return eventos;
+		return usuarios;
 	} 
-} */
+	 
+	 /* public boolean verificarUsuario(Usuario usuario) {
+			// TODO Auto-generated method stub
+			return false;
+		} */
+	 
+	 public boolean isConnectionClose() {
+			try {
+				return connection.isClosed();
+			} catch (SQLException ex) {
+				return false;
+			}
+		}
+
+		public void openConnection() {
+			if ( connection == null) {
+				connection = ConnectionManager.getInstance().getConnection();
+			}
+			
+			if ( isConnectionClose() ) {
+				connection = ConnectionManager.getInstance().getConnection();
+			}		
+		}
+
+		public void closeConnection() {
+			if ( connection != null && !this.isConnectionClose()) {
+				ConnectionManager.getInstance().closeConnection(connection);
+			}
+			
+		}
+
+}

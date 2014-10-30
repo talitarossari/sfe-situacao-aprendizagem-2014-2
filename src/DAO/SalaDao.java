@@ -1,5 +1,7 @@
 package DAO;
 
-public interface SalaDao {
+import modelo.Sala;
+
+public interface SalaDao extends dao<Sala> {
 
 }

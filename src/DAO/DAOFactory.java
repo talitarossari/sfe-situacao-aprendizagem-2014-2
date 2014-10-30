@@ -19,12 +19,25 @@ public abstract class DAOFactory {
 	private static PessoaDao pessoaDAO;	
 	public static PessoaDao getPessoaDao(){
 		if(pessoaDAO == null){
-			pessoaDAO == new PessoaDaoimp();
+			pessoaDAO = new PessoaDaoimp();
 		}
+		if(pessoaDAO.isConnectionClose()){
+			   pessoaDAO.openConnection();
+		   }
+		
 		
 		return pessoaDAO;
 	}
-	private static SalaDao salaDAO;	
+	private static SalaDao salaDAO;
+	
+	public static SalaDao getSalaDao(){
+		
+		if(salaDAO == null){
+			salaDAO = new SalaDaoImp()
+		}
+		return salaDAO;
+		
+	}
 	private static UsuarioDao usuarioDAO;	
 	
 }

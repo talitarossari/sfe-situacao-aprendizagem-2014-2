@@ -2,36 +2,30 @@ package DAO;
 
 import java.util.List;
 
-import modelo.Pessoa;
+import modelo.Sala;
 
-public class PessoaDaoimp implements PessoaDao {
+public class SalaDaoImp implements SalaDao{
 
 	@Override
-	public Pessoa buscarPessoaPorID(int idPessoa) {
+	public Sala salvar(Sala e) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Pessoa salvar(Pessoa e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void alterar(Pessoa e) {
+	public void alterar(Sala e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deletar(Pessoa e) {
+	public void deletar(Sala e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<Pessoa> findAll() {
+	public List<Sala> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -54,4 +48,5 @@ public class PessoaDaoimp implements PessoaDao {
 		
 	}
 
+	
 }

@@ -144,7 +144,7 @@ PreparedStatement ps = null;
 			while (rs.next()) {
 				Agenda agenda = new Agenda();
 				
-				Sala sala = DAOFactory.get
+				
 				
 				
 			}

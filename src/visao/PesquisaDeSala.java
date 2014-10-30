@@ -162,7 +162,7 @@ public class PesquisaDeSala extends JFrame {
 		contentPane.add(lblBuscarPor);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Localiza\u00E7\u00E3o", "Tipo", "Sala", "Data", "Status", "Lugares"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Localiza\u00E7\u00E3o", "Tipo", "Sala", "Lugares"}));
 		comboBox.setBounds(10, 96, 111, 22);
 		contentPane.add(comboBox);
 		

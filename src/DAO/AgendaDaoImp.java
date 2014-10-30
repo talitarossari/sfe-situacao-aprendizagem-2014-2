@@ -2,7 +2,9 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +24,7 @@ public class AgendaDaoImp implements AgendaDao {
 	private final String UPDATE = "update equipe set Nome_Equipe = ?, Sigla_Equipe = ?, Id_Tabela = ?, InscFifa =? where Sigla_Equipe = ?";
 	private final String DELETE = "delete from equipe where Sigla_Equipe = ?";
 	private final String ALL = "select * from equipe";
-	private final String SIGLA = "select * from equipe where Sigla_Equipe = ?";
+	private final String SALA = "select * from equipe where Sigla_Equipe = ?";
 	
 	private static Connection connection;
 	public AgendaDaoImp(){
@@ -129,7 +131,26 @@ PreparedStatement ps = null;
 
 	@Override
 	public Agenda buscarPorSala(Sala sala) {
-		// TODO Auto-generated method stub
+		List<Agenda> agendas = new ArrayList<Agenda>();
+		
+		try{
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			
+			ps = connection.prepareStatement(SALA);
+			ps.setObject(1, sala);
+			
+			ps.executeQuery();
+			while (rs.next()) {
+				Agenda agenda = new Agenda();
+				
+				Sala sala = DAOFactory.get
+				
+				
+			}
+			
+			
+		}
 		return null;
 	}
 

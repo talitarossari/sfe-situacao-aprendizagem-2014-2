@@ -14,8 +14,8 @@ import conexao.ConnectionManager;
 
 public class UsuarioDaoImp implements UsuarioDao{
 
-	private final String INSERT = "insert into usuario (login, senha, Pessoa_idPessoa) values (?,?,?)";
-   private final String UPDATE = "update usuario set login = ?, senha = ? where idusuario = ?";
+	private final String INSERT = "INSERT INTO usuarios (login, senha, idPessoa`) VALUES (?, ?, ?);";
+   private final String UPDATE = "update usuario set login = ?, senha = ? where idUsuarios = ?";
 	private final String DELETE = "delete from usuario where idusuario = ?";
    private final String ALL = "select * from usuario";
 	// private final String VERIFICAR = "select * from usuario where dataa = ?";

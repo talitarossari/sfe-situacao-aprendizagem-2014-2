@@ -9,11 +9,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
@@ -197,6 +202,18 @@ public class CadastroDeSalas extends JFrame {
 		contentPane.add(btnCadastrar);
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int result = JOptionPane.showConfirmDialog(null, "Deseja cancelar?");
+			      if (result == JOptionPane.YES_OPTION) {
+			        TelaInicial tela = new TelaInicial();
+			        tela.setVisible(true);
+			        dispose();
+			      
+			      }
+				
+			}
+		});
 		btnCancelar.setBounds(10, 376, 91, 23);
 		contentPane.add(btnCancelar);
 		
@@ -226,6 +243,17 @@ public class CadastroDeSalas extends JFrame {
 		botaoEditar.setVisible(false);
 		
 		botaoCancelar = new JButton("Cancelar");
+		botaoCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int result = JOptionPane.showConfirmDialog(null, "Deseja cancelar?");
+			      if (result == JOptionPane.YES_OPTION) {
+			        TelaInicial tela = new TelaInicial();
+			        tela.setVisible(true);
+			        dispose();
+			      }
+				
+			}
+		});
 		botaoCancelar.setBounds(10, 376, 91, 23);
 		contentPane.add(botaoCancelar);
 		botaoExcluir.setVisible(false);

@@ -117,7 +117,7 @@ public class SalaDaoImp implements SalaDao{
 		return salas;
 	}
 	
-	public List<Sala> buscarPorId(int idSala) {
+	/*public List<Sala> buscarPorId(int idSala) {
 		List<Sala> salas = new ArrayList<Sala>();
 
 		try {
@@ -131,7 +131,7 @@ public class SalaDaoImp implements SalaDao{
 			
 			while (rs.next()) {
 				Sala sala = new Sala();
-				sala.setIdProduto(rs.getInt("idProduto"));
+				sala(rs.getInt("idProduto"));
 				sala.setNome(rs.getString("nome"));
 				sala.setLocalidadeProduto(rs.getString("localidadeProduto"));
 				sala.setQuantidade(rs.getDouble("quantidade"));
@@ -148,5 +148,29 @@ public class SalaDaoImp implements SalaDao{
 		} else {
 			return produtos.get(0);
 		}
+	}*/
+
+	@Override
+	public boolean isConnectionClose() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void openConnection() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void closeConnection() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Sala> buscarPorId(int idSala) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import br.senai.sc.sfe.conexao.ConnectionManager;
 import br.senai.sc.sfe.entity.Pessoa;
 
-public class PessoaDaoimp_old implements PessoaDao_old {
+public class PessoaDaoImp implements PessoaDao {
 
 	private final String INSERT = "insert into pessoa (nome, cpf, funcao, areaAtuacao) values (?,?,?,?)";
 	private final String UPDATE = "update pessoa set nome = ?, cpf = ?, funcao = ?, areaAtuacao where idpessoa = ?";
@@ -21,7 +21,7 @@ public class PessoaDaoimp_old implements PessoaDao_old {
 	private final String ID = "select * from pessoa where idpessoa = ?";
 	private static Connection connection;
 	
-	public PessoaDaoimp_old() {
+	public PessoaDaoImp() {
 		openConnection();
 	}
 	
@@ -40,7 +40,7 @@ public class PessoaDaoimp_old implements PessoaDao_old {
 			ps.executeUpdate();
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(PessoaDaoimp_old.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(PessoaDaoImp.class.getName()).log(Level.SEVERE, null, ex);
 		} finally {
 			this.closeConnection();
 		}
@@ -61,7 +61,7 @@ public class PessoaDaoimp_old implements PessoaDao_old {
 			ps.executeUpdate();
 
 		} catch (SQLException ex) {
-			Logger.getLogger(PessoaDaoimp_old.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(PessoaDaoImp.class.getName()).log(Level.SEVERE, null, ex);
 		} finally {
 			this.closeConnection();
 		}
@@ -77,7 +77,7 @@ public class PessoaDaoimp_old implements PessoaDao_old {
 			ps.executeUpdate();
 
 		} catch (SQLException ex) {
-			Logger.getLogger(PessoaDaoimp_old.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(PessoaDaoImp.class.getName()).log(Level.SEVERE, null, ex);
 		} finally {
 			this.closeConnection();
 		}
@@ -105,7 +105,7 @@ public class PessoaDaoimp_old implements PessoaDao_old {
 			}
 
 		} catch (SQLException ex) {
-			Logger.getLogger(PessoaDaoimp_old.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(PessoaDaoImp.class.getName()).log(Level.SEVERE, null, ex);
 		} finally {
 			this.closeConnection();
 		}

@@ -17,10 +17,10 @@ public abstract class DAOFactory {
 	   return agendaDAO;
    }
    
-	private static PessoaDao_old pessoaDAO;	
-	public static PessoaDao_old getPessoaDao(){
+	private static PessoaDao pessoaDAO;	
+	public static PessoaDao getPessoaDao(){
 		if(pessoaDAO == null){
-			pessoaDAO = new PessoaDaoimp_old();
+			pessoaDAO = new PessoaDaoImp();
 		}
 		if(pessoaDAO.isConnectionClose()){
 			   pessoaDAO.openConnection();

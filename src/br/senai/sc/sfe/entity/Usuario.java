@@ -5,6 +5,7 @@ public class Usuario {
 	private int idUsuario;
 	private String login;
 	private int senha;
+	
 	private Pessoa pessoa;
 	
 	public Usuario() {	

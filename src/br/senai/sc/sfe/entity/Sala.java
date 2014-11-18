@@ -11,7 +11,7 @@ public class Sala {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idSala;
+	private Integer idSala;
 	@Column(unique = true, length = 30, nullable = false)
 	private String localizacao;
 	@Column(length = 30, nullable = false)
@@ -33,7 +33,7 @@ public class Sala {
 		this.quantidadeLugares = quantidadeLugares;
 	}
 
-	public int getIdSala() {
+	public Integer getIdSala() {
 		return idSala;
 	}
 

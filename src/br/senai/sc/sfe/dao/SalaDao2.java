@@ -22,7 +22,7 @@ public class SalaDao2  {
 	
 	public Sala salvar(Sala sala){
 		try {
-			if (sala.getIdSala() ==0) {
+			if (sala.getIdSala() == null) {
 				entityManager.persist(sala);
 			} else {
 				entityManager.merge(sala);

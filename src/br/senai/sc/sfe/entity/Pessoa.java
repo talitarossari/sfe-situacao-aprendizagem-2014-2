@@ -1,80 +1,117 @@
 package br.senai.sc.sfe.entity;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+/**
+ * The persistent class for the pessoa database table.
+ * 
+ */
 @Entity
-public class Pessoa {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Table(name = "pessoa")
+@NamedQuery(name = "Pessoa.findAll", query = "SELECT p FROM Pessoa p")
+public class Pessoa implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Integer idPessoa;
-	@Column(length = 100, nullable = false)
-	private String nome;
-	@Column(unique = true, length = 100, nullable = false)
-	private String cpf;
-	@Column(length=45, nullable=false)
-	private String funcao;
-	@Column(length=50, nullable=false)
 	private String areaAtuacao;
+	private String cpf;
+	private String funcao;
+	private String nome;
+	private List<Agenda> agendas;
+	private Usuario usuario;
 
 	public Pessoa() {
 	}
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
 	public Integer getIdPessoa() {
-		return idPessoa;
+		return this.idPessoa;
 	}
 
-	public void setIdPessoa(Integer idPessoa) {
+	public void setIdPessoa(int idPessoa) {
 		this.idPessoa = idPessoa;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getFuncao() {
-		return funcao;
-	}
-
-	public void setFuncao(String funcao) {
-		this.funcao = funcao;
-	}
-
+	@Column(nullable = false, length = 50)
 	public String getAreaAtuacao() {
-		return areaAtuacao;
+		return this.areaAtuacao;
 	}
 
 	public void setAreaAtuacao(String areaAtuacao) {
 		this.areaAtuacao = areaAtuacao;
 	}
 
-	public Pessoa(int idPessoa, String nome, String cpf, String funcao,
-			String areaAtuacao) {
-		super();
-		this.setIdPessoa(idPessoa);
-		this.nome = nome;
-		this.cpf = cpf;
-		this.funcao = funcao;
-		this.areaAtuacao = areaAtuacao;
+	@Column(nullable = false, length = 11)
+	public String getCpf() {
+		return this.cpf;
 	}
 
-	public String toString() {
-		return this.nome + " - " + this.cpf + " - " + this.funcao;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	@Column(nullable = false, length = 45)
+	public String getFuncao() {
+		return this.funcao;
+	}
+
+	public void setFuncao(String funcao) {
+		this.funcao = funcao;
+	}
+
+	@Column(nullable = false, length = 100)
+	public String getNome() {
+		return this.nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	// bi-directional many-to-one association to Agenda
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.EAGER)
+	public List<Agenda> getAgendas() {
+		return this.agendas;
+	}
+
+	public void setAgendas(List<Agenda> agendas) {
+		this.agendas = agendas;
+	}
+
+	public Agenda addAgenda(Agenda agenda) {
+		getAgendas().add(agenda);
+		agenda.setPessoa(this);
+
+		return agenda;
+	}
+
+	public Agenda removeAgenda(Agenda agenda) {
+		getAgendas().remove(agenda);
+		agenda.setPessoa(null);
+
+		return agenda;
+	}
+
+	@OneToOne(mappedBy = "pessoa", fetch = FetchType.EAGER)
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

@@ -13,8 +13,7 @@ public class SalaControle {
 		if(sala.getLocalizacao()==null || sala.getLocalizacao().trim().isEmpty()){
 			throw new Exception("A localizacao eh obrigatoria!");
 		}
-		Integer quantidade = sala.getQuantidadeLugares();
-		if(quantidade==null||quantidade<0){
+		if(sala.getQuantidadeLugares()==null || sala.getQuantidadeLugares().trim().isEmpty()){
 			throw new Exception("A quantidade de lugares eh obrigatoria");
 		}
 		if(sala.getTipo()==null|| sala.getTipo().trim().isEmpty()){

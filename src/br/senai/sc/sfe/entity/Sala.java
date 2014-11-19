@@ -1,77 +1,104 @@
 package br.senai.sc.sfe.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
+
+/**
+ * The persistent class for the sala database table.
+ * 
+ */
 @Entity
-public class Sala {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Table(name="sala")
+@NamedQuery(name="Sala.findAll", query="SELECT s FROM Sala s")
+public class Sala implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Integer idSala;
-	@Column(unique = true, length = 30, nullable = false)
-	private String localizacao;
-	@Column(length = 30, nullable = false)
 	private String descricao;
-	@Column(length = 50, nullable = false)
+	private String localizacao;
+	private String quantidadeLugares;
 	private String tipo;
-	@Column(length = 50, nullable = false)
-	private int quantidadeLugares;
+	private List<Agenda> agendas;
 
 	public Sala() {
-
 	}
 
-	public Sala(int idSala, String localizacao, String descricao, String tipo, int quantidadeLugares) {
-		this.idSala = idSala;
-		this.localizacao = localizacao;
-		this.descricao = descricao;
-		this.tipo = tipo;
-		this.quantidadeLugares = quantidadeLugares;
-	}
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	public Integer getIdSala() {
-		return idSala;
+		return this.idSala;
 	}
 
 	public void setIdSala(int idSala) {
 		this.idSala = idSala;
 	}
 
-	public String getLocalizacao() {
-		return localizacao;
-	}
 
-	public void setLocalizacao(String localizacao) {
-		this.localizacao = localizacao;
-	}
-
+	@Column(nullable=false, length=30)
 	public String getDescricao() {
-		return descricao;
+		return this.descricao;
 	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
+
+	@Column(nullable=false, length=30)
+	public String getLocalizacao() {
+		return this.localizacao;
+	}
+
+	public void setLocalizacao(String localizacao) {
+		this.localizacao = localizacao;
+	}
+
+
+	@Column(nullable=false, length=50)
+	public String getQuantidadeLugares() {
+		return this.quantidadeLugares;
+	}
+
+	public void setQuantidadeLugares(String quantidadeLugares) {
+		this.quantidadeLugares = quantidadeLugares;
+	}
+
+
+	@Column(nullable=false, length=50)
 	public String getTipo() {
-		return tipo;
+		return this.tipo;
 	}
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
-	public int getQuantidadeLugares() {
-		return quantidadeLugares;
+
+	//bi-directional many-to-one association to Agenda
+	@OneToMany(mappedBy="sala", fetch=FetchType.EAGER)
+	public List<Agenda> getAgendas() {
+		return this.agendas;
 	}
 
-	public void setQuantidadeLugares(int quantidadeLugares) {
-		this.quantidadeLugares = quantidadeLugares;
+	public void setAgendas(List<Agenda> agendas) {
+		this.agendas = agendas;
 	}
 
-	
+	public Agenda addAgenda(Agenda agenda) {
+		getAgendas().add(agenda);
+		agenda.setSala(this);
+
+		return agenda;
+	}
+
+	public Agenda removeAgenda(Agenda agenda) {
+		getAgendas().remove(agenda);
+		agenda.setSala(null);
+
+		return agenda;
+	}
+
 }

@@ -6,10 +6,14 @@ import java.awt.EventQueue;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import br.senai.sc.sfe.controle.UsuarioControle;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -67,9 +71,17 @@ public class Login extends JFrame {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				UsuarioControle usuarioC = new UsuarioControle();
+				Integer senha = Integer.parseInt(passwordField.getText());
+				boolean resultado = usuarioC.buscarUsuario(textField.getText(), senha);
+				if(resultado == true){
 				TelaInicial tela = new TelaInicial();
 				tela.setVisible(true);
 				dispose();
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Usuario e/ou senha Incorreto!");
+				}
 			}
 		});
 		btnEntrar.setBounds(109, 327, 91, 23);

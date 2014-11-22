@@ -21,12 +21,15 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import br.senai.sc.sfe.controle.SalaControle;
+
 public class PesquisaDeSala extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField palavraChave;
 	private JTable table;
-
+	private JComboBox comboBusca;
+	SalaControle salaC;
 	/**
 	 * Launch the application.
 	 */
@@ -161,21 +164,38 @@ public class PesquisaDeSala extends JFrame {
 		lblBuscarPor.setBounds(10, 81, 79, 14);
 		contentPane.add(lblBuscarPor);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Localiza\u00E7\u00E3o", "Tipo", "Sala", "Lugares"}));
-		comboBox.setBounds(10, 96, 111, 22);
-		contentPane.add(comboBox);
+		comboBusca = new JComboBox();
+		comboBusca.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Localiza\u00E7\u00E3o", "Tipo", "Sala", "Lugares"}));
+		comboBusca.setBounds(10, 96, 111, 22);
+		contentPane.add(comboBusca);
 		
 		JLabel lblPalavraChave = new JLabel("Palavra - Chave:");
 		lblPalavraChave.setBounds(131, 81, 119, 14);
 		contentPane.add(lblPalavraChave);
 		
-		textField = new JTextField();
-		textField.setBounds(131, 98, 200, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		palavraChave = new JTextField();
+		palavraChave.setBounds(131, 98, 200, 20);
+		contentPane.add(palavraChave);
+		palavraChave.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String palavra = palavraChave.getText();
+				if(comboBusca.getSelectedIndex() == 1 && palavra ==null){
+					salaC.buscarPorLocalizacao(palavra);
+				}
+				if(comboBusca.getSelectedIndex() == 2 && palavra ==null){
+					salaC.buscarPorTipo(palavra);
+				}
+				if(comboBusca.getSelectedIndex() == 3 && palavra ==null){
+					salaC.buscarPorSala(palavra);
+				}
+				if(comboBusca.getSelectedIndex() == 4 && palavra ==null){
+					salaC.buscarPorLugares(palavra);
+				}
+			}
+		});
 		btnBuscar.setBounds(341, 95, 91, 23);
 		contentPane.add(btnBuscar);
 		

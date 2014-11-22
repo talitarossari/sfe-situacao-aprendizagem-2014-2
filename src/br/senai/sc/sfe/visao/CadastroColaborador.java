@@ -14,10 +14,14 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
+
+import br.senai.sc.sfe.controle.PessoaControle;
+import br.senai.sc.sfe.entity.Pessoa;
 
 public class CadastroColaborador extends JFrame {
 
@@ -32,6 +36,8 @@ public class CadastroColaborador extends JFrame {
 	private JComboBox comboAtuacao;
 	private JButton btnCadastrar;
 	private JButton btnCancelar;
+	private JLabel idColaborador;
+	PessoaControle pessoaC;
 
 	/**
 	 * Launch the application.
@@ -208,6 +214,24 @@ public class CadastroColaborador extends JFrame {
 		contentPane.add(btnCancelar);
 		
 		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Pessoa pessoa = new Pessoa();
+				pessoa.setIdPessoa(Integer.parseInt(idColaborador.getText()));
+				pessoa.setCpf(cpfC.getText());
+				pessoa.setFuncao((String)comboFuncao.getSelectedItem());
+				pessoa.setAreaAtuacao((String)comboAtuacao.getSelectedItem());
+			
+				try {
+					pessoaC.salvar(pessoa);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					e.printStackTrace();
+				}
+				
+				
+			}
+		});
 		btnCadastrar.setBounds(341, 372, 91, 23);
 		contentPane.add(btnCadastrar);
 		
@@ -235,6 +259,10 @@ public class CadastroColaborador extends JFrame {
 		botaoExcluir = new JButton("Excluir");
 		botaoExcluir.setBounds(176, 372, 91, 23);
 		contentPane.add(botaoExcluir);
+		
+		idColaborador = new JLabel("");
+		idColaborador.setBounds(341, 82, 46, 14);
+		contentPane.add(idColaborador);
 		botaoExcluir.setVisible(false);
 		botaoCancelar.setVisible(false);
 		botaoEditar.setVisible(false);

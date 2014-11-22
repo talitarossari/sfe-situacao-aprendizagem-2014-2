@@ -56,25 +56,15 @@ public class PessoaDao {
 		query.setParameter("nome", nome);
 		return query.getResultList();
 	}
-
-	public List<Pessoa> findAll() {
-		Query query = entityManager.createQuery("From Pessoa", Pessoa.class);
+	public List<Pessoa> buscarPorFuncao(String funcao) {
+		Query query = entityManager.createQuery("From Pessoa p where p.funcao LIKE :funcao", Pessoa.class);
+		query.setParameter("funcao", funcao);
 		return query.getResultList();
 	}
-
-	public void deletar(Integer id) {
-		Pessoa pessoa = entityManager.getReference(Pessoa.class, id);
-		entityManager.remove(pessoa);
-		
+	public List<Pessoa> buscarPorArea(String area) {
+		Query query = entityManager.createQuery("From Pessoa p where p.areaAtuacao LIKE :area", Pessoa.class);
+		query.setParameter("area", area);
+		return query.getResultList();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

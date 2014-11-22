@@ -20,12 +20,15 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import br.senai.sc.sfe.controle.PessoaControle;
+
 public class PesquisaDeColaborador extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField palavraChave;
 	private JTable table;
-
+	private JComboBox comboBusca;
+	PessoaControle pessoaC;
 	/**
 	 * Launch the application.
 	 */
@@ -159,21 +162,36 @@ public class PesquisaDeColaborador extends JFrame {
 		lblBuscarPor.setBounds(10, 67, 103, 14);
 		contentPane.add(lblBuscarPor);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Nome", "Fun\u00E7\u00E3o", "\u00C1rea de Atua\u00E7\u00E3o"}));
-		comboBox.setBounds(10, 83, 103, 22);
-		contentPane.add(comboBox);
+		comboBusca = new JComboBox();
+		comboBusca.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Nome", "Fun\u00E7\u00E3o", "\u00C1rea de Atua\u00E7\u00E3o"}));
+		comboBusca.setBounds(10, 83, 103, 22);
+		contentPane.add(comboBusca);
 		
 		JLabel lblPalavraChave = new JLabel("Palavra - Chave:");
 		lblPalavraChave.setBounds(137, 68, 99, 14);
 		contentPane.add(lblPalavraChave);
 		
-		textField = new JTextField();
-		textField.setBounds(137, 85, 194, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		palavraChave = new JTextField();
+		palavraChave.setBounds(137, 85, 194, 20);
+		contentPane.add(palavraChave);
+		palavraChave.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String palavra = palavraChave.getText();
+				if(comboBusca.getSelectedIndex() == 1 && palavra ==null){
+					pessoaC.buscarPorNome(palavra);
+				}
+				if(comboBusca.getSelectedIndex() == 2 && palavra ==null){
+					pessoaC.buscarPorFuncao(palavra);
+				}
+				if(comboBusca.getSelectedIndex() == 3 && palavra ==null){
+					pessoaC.buscarPorArea(palavra);
+				}
+				
+			}
+		});
 		btnBuscar.setBounds(341, 83, 91, 23);
 		contentPane.add(btnBuscar);
 		

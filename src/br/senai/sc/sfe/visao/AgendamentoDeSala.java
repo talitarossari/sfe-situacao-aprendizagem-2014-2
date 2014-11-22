@@ -181,7 +181,7 @@ public class AgendamentoDeSala extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				ListarSalas salas = new ListarSalas();
 				salas.setVisible(true);
-				dispose();
+				
 			}
 		});
 		btnBuscar.setBounds(111, 131, 77, 23);
@@ -202,10 +202,10 @@ public class AgendamentoDeSala extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				ListarColaboradores lc = new ListarColaboradores();
 				lc.setVisible(true);
-				dispose();
+				
 			}
 		});
-		btnBuscar_1.setBounds(358, 131, 77, 23);
+		btnBuscar_1.setBounds(349, 131, 77, 23);
 		contentPane.add(btnBuscar_1);
 		
 		comboHorario = new JComboBox();
@@ -274,5 +274,17 @@ public class AgendamentoDeSala extends JFrame {
 		JButton btnCancela = new JButton("Cancelar");
 		btnCancela.setBounds(15, 389, 91, 23);
 		contentPane.add(btnCancela);
+	}
+	
+	public void selecionarColaborador(Pessoa pessoaS){
+		if(pessoaS != null){
+			idColaborador.setText(String.valueOf(pessoaS.getIdPessoa()));
+		}
+	}
+	
+	public void selecionarSala(Sala sala){
+		if(sala != null){
+			idSala.setText(String.valueOf(sala.getIdSala()));
+		}
 	}
 }

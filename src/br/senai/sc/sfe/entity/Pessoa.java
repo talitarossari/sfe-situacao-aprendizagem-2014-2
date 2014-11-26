@@ -105,7 +105,7 @@ public class Pessoa implements Serializable {
 
 
 	//bi-directional many-to-one association to Usuario
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name="idUsuario")
 	public Usuario getUsuario() {
 		return this.usuario;

@@ -14,6 +14,7 @@ public class AgendaDao {
 
 	private EntityManager entityManager;
 
+	
 	public AgendaDao() {
 		JpaUtils.getInstance().createEntityManagerFactory();
 		entityManager = JpaUtils.getInstance().getEntityManager();

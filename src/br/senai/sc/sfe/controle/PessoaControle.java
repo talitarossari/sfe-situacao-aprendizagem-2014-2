@@ -7,10 +7,20 @@ import javax.persistence.Query;
 import br.senai.sc.sfe.dao.PessoaDao;
 import br.senai.sc.sfe.entity.Pessoa;
 
+/**
+ * @author talita_rossari
+ *
+ */
 public class PessoaControle {
 
 	Pessoa pessoa;
 	PessoaDao dao;
+	
+	
+	
+	/** 
+	 * Construtor com singleton.
+	 * */
 	
 	public PessoaControle() {
 		if(dao == null){
@@ -18,6 +28,10 @@ public class PessoaControle {
 		}
 	}
 
+	/** 
+	 * Esse metodo valida os campos(Vê se eles estao vazios) e salva ou altera a Pessoa
+	 * */
+	
 	public void salvar(Pessoa pessoa) throws Exception {
 		if (pessoa.getNome() == null || pessoa.getNome().trim().isEmpty()) {
 			throw new Exception("O nome é obrigatorio!");
@@ -35,24 +49,51 @@ public class PessoaControle {
 		dao.salvar(pessoa);
 		
 	}
+	
+	/** 
+	 * Esse metodo remove a pessoa.
+	 * */
+	
 	public void remover(int id){
 		dao.remover(id);
 	}
+	
+	/** 
+	 * Esse metodo lista as pessoas.
+	 * */
 	
 	public List<Pessoa> listar() {
 		return dao.listar();
 	}
 	
+	/** 
+	 * Esse metodo busca a pessoa pelo ID.
+	 * */
+	
 	public Pessoa buscarPorId(int id) {
 		return dao.buscarPorId(id);
 	}
 	
+	/** 
+	 * Esse metodo busca a agenda pelo nome.
+	 * */
+	
 	public List<Pessoa> buscarPorNome(String nome) {
 		return dao.buscarPorNome(nome);
 	}
+	
+	/** 
+	 * Esse metodo busca a agenda pela funcao.
+	 * */
+	
 	public List<Pessoa> buscarPorFuncao(String funcao) {
 		return dao.buscarPorFuncao(funcao);
 	}
+	
+	/** 
+	 * Esse metodo busca a agenda pela de atuacao.
+	 * */
+	
 	public List<Pessoa> buscarPorArea(String area) {
 		return dao.buscarPorArea(area);
 	}

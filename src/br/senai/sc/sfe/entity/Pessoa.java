@@ -1,26 +1,17 @@
 package br.senai.sc.sfe.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  * The persistent class for the pessoa database table.
  * 
  */
 @Entity
-@Table(name = "pessoa")
-@NamedQuery(name = "Pessoa.findAll", query = "SELECT p FROM Pessoa p")
+@Table(name="pessoa")
+@NamedQuery(name="Pessoa.findAll", query="SELECT p FROM Pessoa p")
 public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer idPessoa;
@@ -32,11 +23,13 @@ public class Pessoa implements Serializable {
 	private Usuario usuario;
 
 	public Pessoa() {
+		usuario = new Usuario();
 	}
 
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	public Integer getIdPessoa() {
 		return this.idPessoa;
 	}
@@ -45,7 +38,8 @@ public class Pessoa implements Serializable {
 		this.idPessoa = idPessoa;
 	}
 
-	@Column(nullable = false, length = 50)
+
+	@Column(nullable=false, length=50)
 	public String getAreaAtuacao() {
 		return this.areaAtuacao;
 	}
@@ -54,7 +48,8 @@ public class Pessoa implements Serializable {
 		this.areaAtuacao = areaAtuacao;
 	}
 
-	@Column(nullable = false, length = 11)
+
+	@Column(nullable=false, length=11)
 	public String getCpf() {
 		return this.cpf;
 	}
@@ -63,7 +58,8 @@ public class Pessoa implements Serializable {
 		this.cpf = cpf;
 	}
 
-	@Column(nullable = false, length = 45)
+
+	@Column(nullable=false, length=45)
 	public String getFuncao() {
 		return this.funcao;
 	}
@@ -72,7 +68,8 @@ public class Pessoa implements Serializable {
 		this.funcao = funcao;
 	}
 
-	@Column(nullable = false, length = 100)
+
+	@Column(nullable=false, length=100)
 	public String getNome() {
 		return this.nome;
 	}
@@ -81,8 +78,9 @@ public class Pessoa implements Serializable {
 		this.nome = nome;
 	}
 
-	// bi-directional many-to-one association to Agenda
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.EAGER)
+
+	//bi-directional many-to-one association to Agenda
+	@OneToMany(mappedBy="pessoa")
 	public List<Agenda> getAgendas() {
 		return this.agendas;
 	}
@@ -105,9 +103,12 @@ public class Pessoa implements Serializable {
 		return agenda;
 	}
 
-	@OneToOne(mappedBy = "pessoa", fetch = FetchType.EAGER)
+
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idUsuario")
 	public Usuario getUsuario() {
-		return usuario;
+		return this.usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {

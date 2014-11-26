@@ -1,24 +1,16 @@
 package br.senai.sc.sfe.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 
 /**
  * The persistent class for the agenda database table.
  * 
  */
 @Entity
-@Table(name = "agenda")
-@NamedQuery(name = "Agenda.findAll", query = "SELECT a FROM Agenda a")
+@Table(name="agenda")
+@NamedQuery(name="Agenda.findAll", query="SELECT a FROM Agenda a")
 public class Agenda implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer idAgenda;
@@ -32,9 +24,10 @@ public class Agenda implements Serializable {
 	public Agenda() {
 	}
 
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	public Integer getIdAgenda() {
 		return this.idAgenda;
 	}
@@ -43,7 +36,8 @@ public class Agenda implements Serializable {
 		this.idAgenda = idAgenda;
 	}
 
-	@Column(nullable = false, length = 5)
+
+	@Column(nullable=false, length=5)
 	public String getAno() {
 		return this.ano;
 	}
@@ -52,7 +46,8 @@ public class Agenda implements Serializable {
 		this.ano = ano;
 	}
 
-	@Column(nullable = false, length = 2)
+
+	@Column(nullable=false, length=2)
 	public String getDia() {
 		return this.dia;
 	}
@@ -61,7 +56,8 @@ public class Agenda implements Serializable {
 		this.dia = dia;
 	}
 
-	@Column(nullable = false, length = 20)
+
+	@Column(nullable=false, length=20)
 	public String getHorario() {
 		return this.horario;
 	}
@@ -70,7 +66,8 @@ public class Agenda implements Serializable {
 		this.horario = horario;
 	}
 
-	@Column(nullable = false, length = 20)
+
+	@Column(nullable=false, length=20)
 	public String getMes() {
 		return this.mes;
 	}
@@ -79,9 +76,10 @@ public class Agenda implements Serializable {
 		this.mes = mes;
 	}
 
-	// bi-directional many-to-one association to Pessoa
-	@ManyToOne
-	@JoinColumn(name = "idPessoa", nullable = false)
+
+	//bi-directional many-to-one association to Pessoa
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idPessoa", nullable=false)
 	public Pessoa getPessoa() {
 		return this.pessoa;
 	}
@@ -90,9 +88,10 @@ public class Agenda implements Serializable {
 		this.pessoa = pessoa;
 	}
 
-	// bi-directional many-to-one association to Sala
-	@ManyToOne
-	@JoinColumn(name = "idSala", nullable = false)
+
+	//bi-directional many-to-one association to Sala
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idSala", nullable=false)
 	public Sala getSala() {
 		return this.sala;
 	}

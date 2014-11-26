@@ -19,9 +19,10 @@ public class UsuarioControle {
 	}
 	
 	public void salvar(Usuario usuario) throws Exception{
-		if(usuario.getPessoa().getIdPessoa()<0){
-			throw new Exception("A pessoa é obrigatória!");
-		}
+		//TODO: Verificar depois
+//		if(usuario.getPessoa().getIdPessoa()<0){
+//			throw new Exception("A pessoa é obrigatória!");
+//		}
 		if(usuario.getLogin()==null|| usuario.getLogin().trim().isEmpty()){
 			throw new Exception("O login é obrigatório!");
 		}

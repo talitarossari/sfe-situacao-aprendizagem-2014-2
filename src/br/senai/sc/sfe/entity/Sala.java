@@ -78,7 +78,7 @@ public class Sala implements Serializable {
 
 
 	//bi-directional many-to-one association to Agenda
-	@OneToMany(mappedBy="sala", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="sala")
 	public List<Agenda> getAgendas() {
 		return this.agendas;
 	}

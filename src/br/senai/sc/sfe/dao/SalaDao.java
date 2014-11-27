@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import br.senai.sc.sfe.entity.Agenda;
 import br.senai.sc.sfe.entity.Pessoa;
 import br.senai.sc.sfe.entity.Sala;
 import br.senai.sc.sfe.utils.JpaUtils;
@@ -31,15 +32,20 @@ public class SalaDao {
 	 * Esse metodo salva ou altera a Sala
 	 * */
 	public Sala salvar(Sala sala) {
+		entityManager.getTransaction().begin();
 		try {
 			if (sala.getIdSala() == null) {
 				entityManager.persist(sala);
 			} else {
 				entityManager.merge(sala);
 			}
+			entityManager.getTransaction().commit();
 		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
 			Logger.getLogger(SalaDao.class.getName())
 					.log(Level.SEVERE, null, e);
+		} finally {
+			entityManager.close();
 		}
 		return sala;
 	}
@@ -49,8 +55,18 @@ public class SalaDao {
 	 * */
 
 	public void remover(int id) {
-		Sala sala = entityManager.getReference(Sala.class, id);
-		entityManager.remove(sala);
+		try {
+			entityManager.getTransaction().begin();
+			Sala sala = entityManager.getReference(Sala.class, id);
+			entityManager.remove(sala);
+
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			Logger.getLogger(SalaDao.class.getName())
+					.log(Level.SEVERE, null, e);
+		} finally {
+			entityManager.close();
+		}
 	}
 
 	/**

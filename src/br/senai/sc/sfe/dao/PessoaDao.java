@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.senai.sc.sfe.entity.Pessoa;
+import br.senai.sc.sfe.entity.Sala;
 import br.senai.sc.sfe.utils.JpaUtils;
 
 /**
@@ -53,8 +54,17 @@ public class PessoaDao {
 	 * */
 
 	public void remover(int id) {
-		Pessoa pessoa = entityManager.getReference(Pessoa.class, id);
-		entityManager.remove(pessoa);
+		try {
+			entityManager.getTransaction().begin();
+			Pessoa pessoa = entityManager.getReference(Pessoa.class, id);
+			entityManager.remove(pessoa);
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null,
+					e);
+		} finally {
+			entityManager.close();
+		}
 	}
 
 	/**

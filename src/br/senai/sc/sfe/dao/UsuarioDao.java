@@ -5,10 +5,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import br.senai.sc.sfe.entity.Sala;
 import br.senai.sc.sfe.entity.Usuario;
 import br.senai.sc.sfe.utils.JpaUtils;
-
 
 /**
  * @author nestor_augusto
@@ -28,15 +26,20 @@ public class UsuarioDao {
 	}
 
 	public Usuario salvar(Usuario usuario) {
+		entityManager.getTransaction().begin();
 		try {
 			if (usuario.getIdUsuarios() == null) {
 				entityManager.persist(usuario);
 			} else {
 				entityManager.merge(usuario);
 			}
+			entityManager.getTransaction().commit();
 		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
 			Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE,
 					null, e);
+		} finally {
+			entityManager.close();
 		}
 		return usuario;
 	}
@@ -45,8 +48,18 @@ public class UsuarioDao {
 	 * Esse metodo remove o Usuario.
 	 * */
 	public void remover(int id) {
-		Usuario usuario = entityManager.getReference(Usuario.class, id);
-		entityManager.remove(usuario);
+		try {
+			entityManager.getTransaction().begin();
+			Usuario usuario = entityManager.getReference(Usuario.class, id);
+			entityManager.remove(usuario);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE,
+					null, e);
+		} finally {
+			entityManager.close();
+		}
 	}
 
 	/**

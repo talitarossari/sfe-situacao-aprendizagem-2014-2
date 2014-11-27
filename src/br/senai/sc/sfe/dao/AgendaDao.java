@@ -54,8 +54,19 @@ public class AgendaDao {
 	 * Esse metodo remove a agenda.
 	 * */
 	public void remover(int id) {
-		Agenda agenda = entityManager.getReference(Agenda.class, id);
-		entityManager.remove(agenda);
+		try {
+			entityManager.getTransaction().begin();
+			Agenda agenda = entityManager.find(Agenda.class, id);
+			entityManager.remove(agenda);
+			entityManager.getTransaction().commit();
+
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			Logger.getLogger(AgendaDao.class.getName()).log(Level.SEVERE, null,
+					e);
+		} finally {
+			entityManager.close();
+		}
 	}
 
 	/**

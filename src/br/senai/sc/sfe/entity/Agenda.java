@@ -22,6 +22,8 @@ public class Agenda implements Serializable {
 	private Sala sala;
 
 	public Agenda() {
+		pessoa = new Pessoa();
+		sala = new Sala();
 	}
 
 

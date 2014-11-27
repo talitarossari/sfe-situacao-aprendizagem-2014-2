@@ -12,6 +12,7 @@ import br.senai.sc.sfe.utils.JpaUtils;
 
 public class AgendaDao {
 
+	
 	private EntityManager entityManager;
 
 	
@@ -19,6 +20,9 @@ public class AgendaDao {
 		JpaUtils.getInstance().createEntityManagerFactory();
 		entityManager = JpaUtils.getInstance().getEntityManager();
 	}
+	/** 
+	 * Esse metodo salva ou altera o agendamento
+	 * */
 	
 	public Agenda salvar(Agenda agenda){
 		try {
@@ -38,25 +42,43 @@ public class AgendaDao {
 		return agenda;
 	}
 	
+	/** 
+	 * Esse metodo remove a agenda.
+	 * */
 	public void remover(int id){
 		Agenda agenda = entityManager.getReference(Agenda.class, id);
 		entityManager.remove(agenda);
 	}
+	
+	
+	/** 
+	 * Esse metodo lista as agendas.
+	 * */
 	
 	public List<Agenda> listar() {
 		Query query = entityManager.createQuery("From Agenda", Agenda.class);
 		return query.getResultList();
 	}
 	
+	/** 
+	 * Esse metodo busca a agenda pelo ID.
+	 * */
+	
 	public Agenda buscarPorId(int id) {
 		return entityManager.find(Agenda.class, id);
 	}
+	/** 
+	 * Esse metodo busca a agenda pela sala(id).
+	 * */
 	
 	public List<Agenda> buscarPorSala(int id) {
 		Query query = entityManager.createQuery("From Agenda a where a.sala.idSala = :idSala", Agenda.class);
 		query.setParameter("idSala", id);
 		return query.getResultList();
 	}
+	/** 
+	 * Esse metodo busca a agenda pela sala(id) e pela Pessoa(id).
+	 * */
 	
 	public List<Agenda> buscarPorSalaAndPessoa(int idSala, int idPessoa) {
 		Query query = entityManager.createQuery(

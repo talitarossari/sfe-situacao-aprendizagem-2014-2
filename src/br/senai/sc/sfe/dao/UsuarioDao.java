@@ -20,7 +20,9 @@ public class UsuarioDao {
 		entityManager = JpaUtils.getInstance().getEntityManager();
 	}
 
-	
+	/**
+	 * Esse metodo salva ou altera o Usuario
+	 * */
 	public Usuario salvar(Usuario usuario){
 		try {
 			if (usuario.getIdUsuarios() == null) {
@@ -34,20 +36,32 @@ public class UsuarioDao {
 		return usuario;
 	}
 	
+	/**
+	 * Esse metodo remove o Usuario.
+	 * */
 	public void remover(int id){
 		Usuario usuario = entityManager.getReference(Usuario.class, id);
 		entityManager.remove(usuario);
 	}
 	
+	/** 
+	 * Esse metodo lista os Usuarios.
+	 * */
 	public List<Usuario> listar() {
 		Query query = entityManager.createQuery("From Usuario", Usuario.class);
 		return query.getResultList();
 	}
 	
+	/** 
+	 * Esse metodo busca o Usuario pelo ID.
+	 * */
 	public Usuario buscarPorId(int id) {
 		return entityManager.find(Usuario.class, id);
 	}
 	
+	/** 
+	 * Esse metodo verifica se o Usuario Existe
+	 * */
 	public boolean buscarUsuario(String login, int senha){
 		Query query = entityManager.createQuery(
 				"From Usuario u where u.login = login and u.senha = senha", Usuario.class);

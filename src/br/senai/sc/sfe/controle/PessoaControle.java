@@ -75,7 +75,7 @@ public class PessoaControle {
 	}
 	
 	/** 
-	 * Esse metodo busca a agenda pelo nome.
+	 * Esse metodo busca a pessoa pelo nome.
 	 * */
 	
 	public List<Pessoa> buscarPorNome(String nome) {
@@ -83,7 +83,7 @@ public class PessoaControle {
 	}
 	
 	/** 
-	 * Esse metodo busca a agenda pela funcao.
+	 * Esse metodo busca a pessoa pela funcao.
 	 * */
 	
 	public List<Pessoa> buscarPorFuncao(String funcao) {
@@ -91,7 +91,7 @@ public class PessoaControle {
 	}
 	
 	/** 
-	 * Esse metodo busca a agenda pela de atuacao.
+	 * Esse metodo busca a p pela de atuacao.
 	 * */
 	
 	public List<Pessoa> buscarPorArea(String area) {

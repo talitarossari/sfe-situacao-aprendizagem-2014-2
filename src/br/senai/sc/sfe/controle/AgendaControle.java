@@ -2,11 +2,9 @@ package br.senai.sc.sfe.controle;
 
 import java.util.List;
 
-import javax.persistence.Query;
-import javax.swing.JOptionPane;
+import javax.persistence.EntityManager;
 
 import br.senai.sc.sfe.dao.AgendaDao;
-import br.senai.sc.sfe.dao.UsuarioDao;
 import br.senai.sc.sfe.entity.Agenda;
 
 /**
@@ -15,6 +13,7 @@ import br.senai.sc.sfe.entity.Agenda;
  */
 
 public class AgendaControle {
+	
 	
 	Agenda agenda;
 	AgendaDao agendaDao;

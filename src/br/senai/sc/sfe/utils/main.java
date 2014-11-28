@@ -1,5 +1,8 @@
 package br.senai.sc.sfe.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.senai.sc.sfe.dao.AgendaDao;
 import br.senai.sc.sfe.dao.PessoaDao;
 import br.senai.sc.sfe.dao.SalaDao;
@@ -32,15 +35,25 @@ public class main {
 //		sala.setTipo("Informatica");
 		//daoSala.salvar(sala);
 		
-		//pessoa = dao.buscarPorId(1);
-		//sala = daoSala.buscarPorId(1);
-		//agenda.setAno("2014");
-		//agenda.setDia("23");
-		//agenda.setMes("Fevereiro");
-		//agenda.setPessoa(pessoa);
-		//agenda.setSala(sala);
-		//agenda.setHorario("08h00 - 12h00");
-		daoAgenda.remover(1);
+		pessoa = dao.buscarPorId(10);
+		sala = daoSala.buscarPorId(5);
+		agenda.setAno("2013");
+		agenda.setDia("23");
+		agenda.setMes("Fevereiro");
+		agenda.setPessoa(pessoa);
+		agenda.setSala(sala);
+		agenda.setHorario("08h00 - 12h00");
+		daoAgenda.salvar(agenda);
+		//daoAgenda.remover(1);
+		
+		//List<Agenda> agendas = new ArrayList<Agenda>();
+		//agendas = daoAgenda.listar();
+		
+		//for (Agenda agenda2 : agendas) {
+		//	System.out.println(agenda2.getPessoa().getNome());
+		//}
+		
+		
 	}
 
 }

@@ -19,18 +19,18 @@ import br.senai.sc.sfe.utils.JpaUtils;
 public class SalaDao {
 
 	private EntityManager entityManager;
-
 	/**
 	 * Consutor criando instancia
-	 * */
+	 */
 	public SalaDao() {
 		JpaUtils.getInstance().createEntityManagerFactory();
 		entityManager = JpaUtils.getInstance().getEntityManager();
 	}
-
 	/**
+	 * @param sala
+	 * @return
 	 * Esse metodo salva ou altera a Sala
-	 * */
+	 */
 	public Sala salvar(Sala sala) {
 		entityManager.getTransaction().begin();
 		try {
@@ -49,11 +49,10 @@ public class SalaDao {
 		}
 		return sala;
 	}
-
 	/**
+	 * @param id
 	 * Esse metodo remove a Sala.
-	 * */
-
+	 */
 	public void remover(int id) {
 		try {
 			entityManager.getTransaction().begin();
@@ -68,27 +67,27 @@ public class SalaDao {
 			entityManager.close();
 		}
 	}
-
 	/**
+	 * @return
 	 * Esse metodo lista as Salas.
-	 * */
-
+	 */
 	public List<Sala> listar() {
 		Query query = entityManager.createQuery("From Sala", Sala.class);
 		return query.getResultList();
 	}
-
 	/**
+	 * @param id
+	 * @return
 	 * Esse metodo busca a sala pelo ID.
-	 * */
-
+	 */
 	public Sala buscarPorId(int id) {
 		return entityManager.find(Sala.class, id);
 	}
-
 	/**
+	 * @param localizacao
+	 * @return
 	 * Esse metodo busca a Sala pela localizacao.
-	 * */
+	 */
 	public List<Sala> buscarPorLocalizacao(String localizacao) {
 		Query query = entityManager
 				.createQuery(
@@ -97,33 +96,33 @@ public class SalaDao {
 		query.setParameter("localizacao", localizacao);
 		return query.getResultList();
 	}
-
 	/**
+	 * @param tipo
+	 * @return
 	 * Esse metodo busca a Sala pelo tipo.
-	 * */
-
+	 */
 	public List<Sala> buscarPorTipo(String tipo) {
 		Query query = entityManager.createQuery(
 				"From Sala s where s.tipo LIKE :tipo", Sala.class);
 		query.setParameter("tipo", tipo);
 		return query.getResultList();
 	}
-
 	/**
+	 * @param sala
+	 * @return
 	 * Esse metodo busca a Sala pela sala.
-	 * */
-
+	 */
 	public List<Sala> buscarPorSala(String sala) {
 		Query query = entityManager.createQuery(
 				"From Sala s where s.sala LIKE :sala", Sala.class);
 		query.setParameter("sala", sala);
 		return query.getResultList();
 	}
-
 	/**
+	 * @param lugares
+	 * @return
 	 * Esse metodo busca a Sala pela quantidade de lugares.
-	 * */
-
+	 */
 	public List<Sala> buscarPorLugares(String lugares) {
 		Query query = entityManager.createQuery(
 				"From Sala s where s.lugares LIKE :lugares", Sala.class);

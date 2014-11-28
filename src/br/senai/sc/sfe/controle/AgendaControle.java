@@ -8,7 +8,7 @@ import br.senai.sc.sfe.dao.AgendaDao;
 import br.senai.sc.sfe.entity.Agenda;
 
 /**
- * @author talita_rossari
+ * @author nestor_augusto
  *
  */
 
@@ -18,20 +18,19 @@ public class AgendaControle {
 	Agenda agenda;
 	AgendaDao agendaDao;
 	
-	/** 
+	/**
 	 * Construtor com singleton.
-	 * */
-	
+	 */
 	public AgendaControle() {
 		if(agendaDao == null){
 			agendaDao = new AgendaDao(); 
 		}
 	}
-	
-	/** 
+	/**
+	 * @param agenda
+	 * @throws Exception
 	 * Esse metodo valida os campos(Vê se eles estao vazios) e salva ou altera o agendamento
-	 * */
-	
+	 */
 	public void salvar(Agenda agenda) throws Exception {
 		
 		if(agenda.getSala().getIdSala()<=0){
@@ -56,43 +55,42 @@ public class AgendaControle {
 			
 		}
 	}
-	
-	/** 
+	/**
+	 * @param id
 	 * Esse metodo remove a agenda.
-	 * */
-	
+	 */
 	public void remover(int id){
 		agendaDao.remover(id);
 	}
-	
-	/** 
+	/**
+	 * @return
 	 * Esse metodo lista as agendas.
-	 * */
-	
+	 */
 	public List<Agenda> listar() {
 		return agendaDao.listar();
 	}
-	
-	/** 
+	/**
+	 * @param id
+	 * @return
 	 * Esse metodo busca a agenda pelo ID.
-	 * */
-	
+	 */
 	public Agenda buscarPorId(int id) {
 		return agendaDao.buscarPorId(id);
 	}
-	
-	/** 
+	/**
+	 * @param id
+	 * @return
 	 * Esse metodo busca a agenda pela sala(id).
-	 * */
-	
+	 */
 	public List<Agenda> buscarPorSala(int id) {
 		return agendaDao.buscarPorSala(id);
 	}
-	
-	/** 
+	/**
+	 * @param idSala
+	 * @param idPessoa
+	 * @return
 	 * Esse metodo busca a agenda pela sala(id) e pela Pessoa(id).
-	 * */
-	
+	 */
 	public List<Agenda> buscarPorSalaAndPessoa(int idSala, int idPessoa) {
 		return agendaDao.buscarPorSalaAndPessoa(idSala, idPessoa);
 	}

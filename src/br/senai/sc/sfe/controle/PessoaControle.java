@@ -8,30 +8,26 @@ import br.senai.sc.sfe.dao.PessoaDao;
 import br.senai.sc.sfe.entity.Pessoa;
 
 /**
- * @author talita_rossari
+ * @author nestor_augusto
  *
  */
 public class PessoaControle {
 
 	Pessoa pessoa;
 	PessoaDao dao;
-	
-	
-	
-	/** 
+	/**
 	 * Construtor com singleton.
-	 * */
-	
+	 */
 	public PessoaControle() {
 		if(dao == null){
 			dao = new PessoaDao(); 
 		}
 	}
-
-	/** 
+	/**
+	 * @param pessoa
+	 * @throws Exception
 	 * Esse metodo valida os campos(Vê se eles estao vazios) e salva ou altera a Pessoa
-	 * */
-	
+	 */
 	public void salvar(Pessoa pessoa) throws Exception {
 		if (pessoa.getNome() == null || pessoa.getNome().trim().isEmpty()) {
 			throw new Exception("O nome é obrigatorio!");
@@ -49,11 +45,10 @@ public class PessoaControle {
 		dao.salvar(pessoa);
 		
 	}
-	
-	/** 
-	 * Esse metodo remove a pessoa.
-	 * */
-	
+	/**
+	 * @param id
+	 * 
+	 */
 	public void remover(int id){
 		dao.remover(id);
 	}

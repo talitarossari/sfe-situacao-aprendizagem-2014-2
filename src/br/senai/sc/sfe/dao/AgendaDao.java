@@ -54,10 +54,10 @@ public class AgendaDao {
 		}
 		return agenda;
 	}
-
 	/**
+	 * @param id
 	 * Esse metodo remove a agenda.
-	 * */
+	 */
 	public void remover(int id) {
 		try {
 			entityManager.getTransaction().begin();
@@ -73,35 +73,39 @@ public class AgendaDao {
 			entityManager.close();
 		}
 	}
-
 	/**
+	 * @return
 	 * Esse metodo lista as agendas.
-	 * */
+	 */
 	public List<Agenda> listar() {
 		Query query = entityManager.createQuery("From Agenda", Agenda.class);
 		return query.getResultList();
 	}
-
 	/**
+	 * @param id
+	 * @return
 	 * Esse metodo busca a agenda pelo ID.
-	 * */
+	 */
 	public Agenda buscarPorId(int id) {
 		return entityManager.find(Agenda.class, id);
 	}
-
 	/**
+	 * @param id
+	 * @return
 	 * Esse metodo busca a agenda pela sala(id).
-	 * */
+	 */
 	public List<Agenda> buscarPorSala(int id) {
 		Query query = entityManager.createQuery(
 				"From Agenda a where a.sala.idSala = :idSala", Agenda.class);
 		query.setParameter("idSala", id);
 		return query.getResultList();
 	}
-
 	/**
+	 * @param idSala
+	 * @param idPessoa
+	 * @return
 	 * Esse metodo busca a agenda pela sala(id) e pela Pessoa(id).
-	 * */
+	 */
 	public List<Agenda> buscarPorSalaAndPessoa(int idSala, int idPessoa) {
 		Query query = entityManager
 				.createQuery(

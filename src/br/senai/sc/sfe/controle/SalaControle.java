@@ -7,26 +7,27 @@ import javax.persistence.Query;
 import br.senai.sc.sfe.dao.SalaDao;
 import br.senai.sc.sfe.entity.Sala;
 
+/**
+ * @author nestor_augusto
+ *
+ */
 public class SalaControle {
 
 	Sala sala;
 	SalaDao dao;
-
 	/**
 	 * Construtor com singleton.
-	 * */
-
+	 */
 	public SalaControle() {
 		if (dao == null) {
 			dao = new SalaDao();
 		}
 	}
-
 	/**
-	 * Esse metodo valida os campos(Vê se eles estao vazios) e salva ou altera a
-	 * Sala
-	 * */
-
+	 * @param sala
+	 * @throws Exception
+	 * Esse metodo valida os campos(Vê se eles estao vazios) e salva ou altera a Sala
+	 */
 	public void salvar(Sala sala) throws Exception {
 		if (sala.getDescricao() == null || sala.getDescricao().trim().isEmpty()) {
 			throw new Exception("A descricao eh obrigatoria!");
@@ -45,59 +46,57 @@ public class SalaControle {
 			dao.salvar(sala);
 		}
 	}
-
 	/**
+	 * @param id
 	 * Esse metodo remove a Sala.
-	 * */
-
+	 */
 	public void remover(int id) {
 		dao.remover(id);
 	}
-	
-	/** 
+	/**
+	 * @return
 	 * Esse metodo lista as Salas.
-	 * */
-
+	 */
 	public List<Sala> listar() {
 		return dao.listar();
 	}
-
-	/** 
+	/**
+	 * @param id
+	 * @return
 	 * Esse metodo busca a sala pelo ID.
-	 * */
-	
+	 */
 	public Sala buscarPorId(int id) {
 		return dao.buscarPorId(id);
 	}
-	
-	/** 
+	/**
+	 * @param localizacao
+	 * @return
 	 * Esse metodo busca a Sala pela localizacao.
-	 * */
-
+	 */
 	public List<Sala> buscarPorLocalizacao(String localizacao) {
 		return dao.buscarPorLocalizacao(localizacao);
-	}
-
-	/** 
+	}	
+	/**
+	 * @param tipo
+	 * @return
 	 * Esse metodo busca a Sala pelo tipo.
-	 * */
-	
+	 */
 	public List<Sala> buscarPorTipo(String tipo) {
 		return dao.buscarPorTipo(tipo);
 	}
-	
-	/** 
+	/**
+	 * @param sala
+	 * @return
 	 * Esse metodo busca a Sala pela sala.
-	 * */
-
+	 */
 	public List<Sala> buscarPorSala(String sala) {
 		return dao.buscarPorSala(sala);
 	}
-
-	/** 
+	/**
+	 * @param lugares
+	 * @return
 	 * Esse metodo busca a Sala pela quantidade de lugares.
-	 * */
-	
+	 */
 	public List<Sala> buscarPorLugares(String lugares) {
 		return dao.buscarPorLugares(lugares);
 	}

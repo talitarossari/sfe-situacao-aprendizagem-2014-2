@@ -33,15 +33,16 @@ public class AgendaDao {
 
 	/**
 	 * @param agenda
-	 * @return Agenda
-	 * Esse metodo salva ou altera o agendamento
+	 * @return Agenda Esse metodo salva ou altera o agendamento
 	 */
 	public Agenda salvar(Agenda agenda) {
 		try {
-			entityManager.getTransaction().begin();
+
 			if (agenda.getIdAgenda() == null) {
+				entityManager.getTransaction().begin();
 				entityManager.persist(agenda);
 			} else {
+				entityManager.getTransaction().begin();
 				entityManager.merge(agenda);
 			}
 			entityManager.getTransaction().commit();
@@ -54,9 +55,25 @@ public class AgendaDao {
 		}
 		return agenda;
 	}
+
+	public Agenda editar(Agenda agenda) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.merge(agenda);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			Logger.getLogger(AgendaDao.class.getName()).log(Level.SEVERE, null,
+					e);
+		} finally {
+			entityManager.close();
+		}
+		return agenda;
+	}
+
 	/**
 	 * @param id
-	 * Esse metodo remove a agenda.
+	 *            Esse metodo remove a agenda.
 	 */
 	public void remover(int id) {
 		try {
@@ -73,26 +90,26 @@ public class AgendaDao {
 			entityManager.close();
 		}
 	}
+
 	/**
-	 * @return
-	 * Esse metodo lista as agendas.
+	 * @return Esse metodo lista as agendas.
 	 */
 	public List<Agenda> listar() {
 		Query query = entityManager.createQuery("From Agenda", Agenda.class);
 		return query.getResultList();
 	}
+
 	/**
 	 * @param id
-	 * @return
-	 * Esse metodo busca a agenda pelo ID.
+	 * @return Esse metodo busca a agenda pelo ID.
 	 */
 	public Agenda buscarPorId(int id) {
 		return entityManager.find(Agenda.class, id);
 	}
+
 	/**
 	 * @param id
-	 * @return
-	 * Esse metodo busca a agenda pela sala(id).
+	 * @return Esse metodo busca a agenda pela sala(id).
 	 */
 	public List<Agenda> buscarPorSala(int id) {
 		Query query = entityManager.createQuery(
@@ -100,11 +117,11 @@ public class AgendaDao {
 		query.setParameter("idSala", id);
 		return query.getResultList();
 	}
+
 	/**
 	 * @param idSala
 	 * @param idPessoa
-	 * @return
-	 * Esse metodo busca a agenda pela sala(id) e pela Pessoa(id).
+	 * @return Esse metodo busca a agenda pela sala(id) e pela Pessoa(id).
 	 */
 	public List<Agenda> buscarPorSalaAndPessoa(int idSala, int idPessoa) {
 		Query query = entityManager

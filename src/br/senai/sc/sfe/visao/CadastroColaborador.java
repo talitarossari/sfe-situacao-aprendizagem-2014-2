@@ -35,7 +35,6 @@ public class CadastroColaborador extends JFrame {
 	private JComboBox comboFuncao;
 	private JComboBox comboAtuacao;
 	private JButton btnCadastrar;
-	private JButton btnCancelar;
 	private JLabel idColaborador;
 	PessoaControle pessoaC;
 
@@ -60,14 +59,14 @@ public class CadastroColaborador extends JFrame {
 	 */
 	public CadastroColaborador() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 450);
+		setBounds(100, 100, 483, 513);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 442, 21);
+		menuBar.setBounds(0, 0, 467, 21);
 		contentPane.add(menuBar);
 		
 		JMenu mnTelaInicial = new JMenu("Tela Inicial");
@@ -165,15 +164,15 @@ public class CadastroColaborador extends JFrame {
 		
 		labelCad = new JLabel("Cadastro De Colaborador");
 		labelCad.setFont(new Font("Arial", Font.PLAIN, 30));
-		labelCad.setBounds(49, 36, 338, 35);
+		labelCad.setBounds(57, 61, 338, 35);
 		contentPane.add(labelCad);
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(198, 111, 46, 14);
+		lblNome.setBounds(206, 142, 46, 14);
 		contentPane.add(lblNome);
 		
 		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setBounds(41, 111, 46, 14);
+		lblCpf.setBounds(49, 142, 46, 14);
 		contentPane.add(lblCpf);
 		MaskFormatter mascara = null;
 		try{
@@ -183,35 +182,31 @@ public class CadastroColaborador extends JFrame {
 		}
 		cpfC = new JFormattedTextField(mascara);
 		
-		cpfC.setBounds(41, 133, 105, 20);
+		cpfC.setBounds(49, 164, 105, 20);
 		contentPane.add(cpfC);
 		
 		nomeC = new JTextField();
-		nomeC.setBounds(195, 133, 192, 20);
+		nomeC.setBounds(203, 164, 192, 20);
 		contentPane.add(nomeC);
 		nomeC.setColumns(10);
 		
 		JLabel lblFun = new JLabel("Fun\u00E7\u00E3o:");
-		lblFun.setBounds(41, 219, 46, 14);
+		lblFun.setBounds(49, 250, 46, 14);
 		contentPane.add(lblFun);
 		
 		comboFuncao = new JComboBox();
 		comboFuncao.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Professor", "Coordenador", "Diretor"}));
-		comboFuncao.setBounds(41, 244, 105, 22);
+		comboFuncao.setBounds(49, 275, 105, 22);
 		contentPane.add(comboFuncao);
 		
 		JLabel lblreaDeAtuao = new JLabel("\u00C1rea de Atua\u00E7\u00E3o:");
-		lblreaDeAtuao.setBounds(198, 219, 189, 14);
+		lblreaDeAtuao.setBounds(206, 250, 189, 14);
 		contentPane.add(lblreaDeAtuao);
 		
 		comboAtuacao = new JComboBox();
 		comboAtuacao.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Automacao", "Coordenacao", "Informatica"}));
-		comboAtuacao.setBounds(198, 244, 189, 22);
+		comboAtuacao.setBounds(206, 275, 189, 22);
 		contentPane.add(comboAtuacao);
-		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(10, 372, 91, 23);
-		contentPane.add(btnCancelar);
 		
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
@@ -224,6 +219,7 @@ public class CadastroColaborador extends JFrame {
 			
 				try {
 					pessoaC.salvar(pessoa);
+					limpar();
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					e.printStackTrace();
@@ -232,32 +228,34 @@ public class CadastroColaborador extends JFrame {
 				
 			}
 		});
-		btnCadastrar.setBounds(341, 372, 91, 23);
+		btnCadastrar.setBounds(351, 428, 91, 23);
 		contentPane.add(btnCadastrar);
 		
 		botaoEditar = new JButton("Editar");
 		botaoEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cpfC.setEnabled(true);
 				nomeC.setEnabled(true);
 				comboAtuacao.setEnabled(true);
 				comboFuncao.setEnabled(true);
 				botaoEditar.setVisible(false);
 				btnCadastrar.setVisible(true);
 				btnCadastrar.setText("Alterar");
-				
-				
 			}
 		});
-		botaoEditar.setBounds(341, 372, 91, 23);
+		botaoEditar.setBounds(351, 428, 91, 23);
 		contentPane.add(botaoEditar);
 		
 		botaoCancelar = new JButton("Cancelar");
-		botaoCancelar.setBounds(10, 372, 91, 23);
+		botaoCancelar.setBounds(24, 428, 91, 23);
 		contentPane.add(botaoCancelar);
 		
 		botaoExcluir = new JButton("Excluir");
-		botaoExcluir.setBounds(176, 372, 91, 23);
+		botaoExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pessoaC.remover(Integer.valueOf(idColaborador.getText()));
+			}
+		});
+		botaoExcluir.setBounds(186, 428, 91, 23);
 		contentPane.add(botaoExcluir);
 		
 		idColaborador = new JLabel("");
@@ -269,17 +267,28 @@ public class CadastroColaborador extends JFrame {
 		
 	}
 	
-	public void VerColaborador(){
+	public void VerColaborador(Pessoa pessoa){
+		limpar();
+		idColaborador.setText(String.valueOf(pessoa.getIdPessoa()));
+		cpfC.setText(pessoa.getCpf());
+		nomeC.setText(pessoa.getNome());
+		comboAtuacao.setSelectedItem(pessoa.getAreaAtuacao());
+		comboFuncao.setSelectedItem(pessoa.getFuncao());
 		labelCad.setText("Visualizar Colaborador:");
-		botaoExcluir.setVisible(true);
 		botaoCancelar.setVisible(true);
 		btnCadastrar.setVisible(false);
-		btnCancelar.setVisible(false);
 		botaoEditar.setVisible(true);
 		cpfC.setEnabled(false);
 		nomeC.setEnabled(false);
 		comboAtuacao.setEnabled(false);
 		comboFuncao.setEnabled(false);
-		
+	}
+	
+	public void limpar(){
+		idColaborador.setText("0");
+		cpfC.setText("");
+		nomeC.setText("");
+		comboAtuacao.setSelectedIndex(0);
+		comboFuncao.setSelectedIndex(0);	
 	}
 }

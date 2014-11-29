@@ -129,4 +129,13 @@ public class SalaDao {
 		query.setParameter("lugares", lugares);
 		return query.getResultList();
 	}
+
+	public List<Sala> buscarPorAnoEMes(String ano, String mes) {
+		Query query = entityManager.createQuery(
+				"From Sala s where s.ano= ano and s.mes=mes", Sala.class);
+		query.setParameter("ano", ano);
+		query.setParameter("mes", mes);
+		return query.getResultList();
+	}
+
 }

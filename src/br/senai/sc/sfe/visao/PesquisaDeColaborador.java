@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import br.senai.sc.sfe.controle.PessoaControle;
+import br.senai.sc.sfe.entity.Pessoa;
 
 public class PesquisaDeColaborador extends JFrame {
 
@@ -29,6 +30,7 @@ public class PesquisaDeColaborador extends JFrame {
 	private JTable table;
 	private JComboBox comboBusca;
 	PessoaControle pessoaC;
+	Pessoa pessoa;
 	/**
 	 * Launch the application.
 	 */
@@ -49,15 +51,16 @@ public class PesquisaDeColaborador extends JFrame {
 	 * Create the frame.
 	 */
 	public PesquisaDeColaborador() {
+		pessoaC = new PessoaControle();
 		setTitle("Salas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 450);
+		setBounds(100, 100, 484, 514);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 442, 21);
+		menuBar.setBounds(0, 0, 468, 21);
 		contentPane.add(menuBar);
 		
 		JMenu mnTelaInicial = new JMenu("Tela Inicial");
@@ -172,7 +175,7 @@ public class PesquisaDeColaborador extends JFrame {
 		contentPane.add(lblPalavraChave);
 		
 		palavraChave = new JTextField();
-		palavraChave.setBounds(137, 85, 194, 20);
+		palavraChave.setBounds(137, 85, 220, 20);
 		contentPane.add(palavraChave);
 		palavraChave.setColumns(10);
 		
@@ -192,11 +195,11 @@ public class PesquisaDeColaborador extends JFrame {
 				
 			}
 		});
-		btnBuscar.setBounds(341, 83, 91, 23);
+		btnBuscar.setBounds(367, 83, 91, 23);
 		contentPane.add(btnBuscar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 117, 422, 240);
+		scrollPane.setBounds(10, 117, 448, 300);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -232,20 +235,32 @@ public class PesquisaDeColaborador extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		JButton btnLimpar = new JButton("Limpar");
-		btnLimpar.setBounds(10, 368, 91, 23);
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpar();
+			}
+		});
+		btnLimpar.setBounds(10, 428, 91, 23);
 		contentPane.add(btnLimpar);
 		
 		JButton btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				
 				CadastroColaborador cc= new CadastroColaborador();
-				cc.VerColaborador();
+				//cc.VerColaborador(pessoa);
 				cc.setVisible(true);
 				dispose();
 			}
 		});
-		btnVisualizar.setBounds(341, 368, 91, 23);
+		btnVisualizar.setBounds(367, 428, 91, 23);
 		contentPane.add(btnVisualizar);
+	}
+	public void limpar(){
+		palavraChave.setText("");
+		comboBusca.setSelectedIndex(0);
+		table.removeAll();
 	}
 
 }

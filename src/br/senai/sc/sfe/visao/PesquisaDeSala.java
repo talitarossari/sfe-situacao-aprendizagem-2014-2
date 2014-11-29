@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import br.senai.sc.sfe.controle.SalaControle;
+import br.senai.sc.sfe.entity.Sala;
 
 public class PesquisaDeSala extends JFrame {
 
@@ -30,6 +31,7 @@ public class PesquisaDeSala extends JFrame {
 	private JTable table;
 	private JComboBox comboBusca;
 	SalaControle salaC;
+	Sala sala;
 	/**
 	 * Launch the application.
 	 */
@@ -51,6 +53,7 @@ public class PesquisaDeSala extends JFrame {
 	 */
 	public PesquisaDeSala() {
 		setTitle("Salas");
+		salaC = new SalaControle();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 450);
 		contentPane = new JPanel();
@@ -241,7 +244,7 @@ public class PesquisaDeSala extends JFrame {
 		btnVisualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CadastroDeSalas salas = new CadastroDeSalas();
-				salas.PesquisaSalas();
+				//salas.visualizarSalas(sala);
 				salas.setVisible(true);
 				dispose();
 				
@@ -249,5 +252,11 @@ public class PesquisaDeSala extends JFrame {
 		});
 		btnVisualizar.setBounds(341, 389, 91, 23);
 		contentPane.add(btnVisualizar);
+	}
+	
+	public void limpar(){
+		palavraChave.setText("");
+		comboBusca.setSelectedIndex(0);
+		table.removeAll();
 	}
 }

@@ -74,7 +74,7 @@ public class Login extends JFrame {
 				UsuarioControle usuarioC = new UsuarioControle();
 				Integer senha = Integer.parseInt(passwordField.getText());
 				boolean resultado = usuarioC.buscarUsuario(textField.getText(), senha);
-				if(resultado == true){
+				if(resultado){
 				TelaInicial tela = new TelaInicial();
 				tela.setVisible(true);
 				dispose();

@@ -2,6 +2,8 @@ package br.senai.sc.sfe.visao;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,11 +15,19 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import br.senai.sc.sfe.controle.SalaControle;
+import br.senai.sc.sfe.entity.Pessoa;
+import br.senai.sc.sfe.entity.Sala;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class ListarSalas extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private JTextField textField;
+	private JTextField idSala;
+	Sala sala;
+	SalaControle salaC;
 
 	/**
 	 * Launch the application.
@@ -27,6 +37,7 @@ public class ListarSalas extends JFrame {
 			public void run() {
 				try {
 					ListarSalas frame = new ListarSalas();
+					frame.listarTodos();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -92,6 +103,10 @@ public class ListarSalas extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		JButton btnSelecionar = new JButton("Selecionar");
+		btnSelecionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnSelecionar.setBounds(332, 389, 100, 23);
 		contentPane.add(btnSelecionar);
 		
@@ -99,13 +114,27 @@ public class ListarSalas extends JFrame {
 		lblCdigo.setBounds(109, 33, 46, 14);
 		contentPane.add(lblCdigo);
 		
-		textField = new JTextField();
-		textField.setBounds(163, 30, 86, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		idSala = new JTextField();
+		idSala.setBounds(163, 30, 86, 20);
+		contentPane.add(idSala);
+		idSala.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(260, 29, 91, 23);
 		contentPane.add(btnBuscar);
 	}
+	
+	private void listarTodos() {
+		List<Sala> salas = new ArrayList<Sala>();
+		salas = salaC.listar();
+
+		for (Sala salas2 : salas) {
+			System.out.println(salas2.getDescricao());
+		}
+	}
+
+	public void limpar() {
+		table.removeAll();
+	}
+	
 }

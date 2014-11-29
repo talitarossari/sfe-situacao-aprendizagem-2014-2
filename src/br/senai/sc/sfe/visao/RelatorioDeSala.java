@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -21,10 +22,20 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import br.senai.sc.sfe.controle.AgendaControle;
+import br.senai.sc.sfe.controle.SalaControle;
+import br.senai.sc.sfe.entity.Agenda;
+import br.senai.sc.sfe.entity.Sala;
+
 public class RelatorioDeSala extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	AgendaControle agendaC;
+	Agenda agenda;
+	private JComboBox comboMes;
+	private JComboBox comboAno;
+	SalaControle salaC;
 
 	/**
 	 * Launch the application.
@@ -46,6 +57,7 @@ public class RelatorioDeSala extends JFrame {
 	 * Create the frame.
 	 */
 	public RelatorioDeSala() {
+		salaC = new SalaControle();
 		setTitle("Salas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 449);
@@ -160,12 +172,17 @@ public class RelatorioDeSala extends JFrame {
 		lblBuscarPor.setBounds(174, 81, 112, 14);
 		contentPane.add(lblBuscarPor);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Janeiro", "Fevereiro", "Mar\u00E7o", "Abril", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"}));
-		comboBox.setBounds(174, 102, 112, 22);
-		contentPane.add(comboBox);
+		comboMes = new JComboBox();
+		comboMes.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Janeiro", "Fevereiro", "Mar\u00E7o", "Abril", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"}));
+		comboMes.setBounds(174, 102, 112, 22);
+		contentPane.add(comboMes);
 		
 		JButton btnBuscar = new JButton("Gerar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Sala> salas = salaC.buscarPorAnoEMes((String)comboAno.getSelectedItem(), (String)comboMes.getSelectedItem());
+			}
+		});
 		btnBuscar.setBounds(309, 102, 91, 23);
 		contentPane.add(btnBuscar);
 		
@@ -209,6 +226,11 @@ public class RelatorioDeSala extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Limpar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpar();
+			}
+		});
 		btnNewButton_1.setBounds(11, 370, 91, 23);
 		contentPane.add(btnNewButton_1);
 		
@@ -216,9 +238,14 @@ public class RelatorioDeSala extends JFrame {
 		lblAno.setBounds(57, 81, 46, 14);
 		contentPane.add(lblAno);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "2014"}));
-		comboBox_1.setBounds(57, 102, 91, 22);
-		contentPane.add(comboBox_1);
+		comboAno = new JComboBox();
+		comboAno.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "2014"}));
+		comboAno.setBounds(57, 102, 91, 22);
+		contentPane.add(comboAno);
+	}
+	
+	public void limpar(){
+		comboAno.setSelectedIndex(0);
+		comboMes.setSelectedIndex(0);
 	}
 }

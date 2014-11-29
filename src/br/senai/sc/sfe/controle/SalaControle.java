@@ -101,4 +101,8 @@ public class SalaControle {
 		return dao.buscarPorLugares(lugares);
 	}
 
+	public List<Sala> buscarPorAnoEMes(String ano,String mes) {
+		return dao.buscarPorAnoEMes(ano, mes);
+	}
+	
 }

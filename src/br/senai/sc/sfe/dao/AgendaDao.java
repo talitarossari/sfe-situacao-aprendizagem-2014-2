@@ -36,13 +36,15 @@ public class AgendaDao {
 	 * @return Agenda Esse metodo salva ou altera o agendamento
 	 */
 	public Agenda salvar(Agenda agenda) {
+		
+		
 		try {
-
+			entityManager.getTransaction().begin();
 			if (agenda.getIdAgenda() == null) {
-				entityManager.getTransaction().begin();
+				
 				entityManager.persist(agenda);
 			} else {
-				entityManager.getTransaction().begin();
+				
 				entityManager.merge(agenda);
 			}
 			entityManager.getTransaction().commit();

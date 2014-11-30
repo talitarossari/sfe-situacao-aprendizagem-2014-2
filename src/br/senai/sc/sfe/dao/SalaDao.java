@@ -42,8 +42,7 @@ public class SalaDao {
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
-			Logger.getLogger(SalaDao.class.getName())
-					.log(Level.SEVERE, null, e);
+			Logger.getLogger(SalaDao.class.getName()).log(Level.SEVERE, null, e);
 		} finally {
 			entityManager.close();
 		}
@@ -114,8 +113,8 @@ public class SalaDao {
 	 */
 	public List<Sala> buscarPorSala(String sala) {
 		Query query = entityManager.createQuery(
-				"From Sala s where s.sala LIKE :sala", Sala.class);
-		query.setParameter("sala", sala);
+				"From Sala as s where s.descricao LIKE :descricao", Sala.class);
+		query.setParameter("descricao", sala);
 		return query.getResultList();
 	}
 	/**
@@ -125,7 +124,7 @@ public class SalaDao {
 	 */
 	public List<Sala> buscarPorLugares(String lugares) {
 		Query query = entityManager.createQuery(
-				"From Sala s where s.lugares LIKE :lugares", Sala.class);
+				"From Sala as s where s.quantidadeLugares LIKE lugares", Sala.class);
 		query.setParameter("lugares", lugares);
 		return query.getResultList();
 	}

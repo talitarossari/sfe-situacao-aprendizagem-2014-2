@@ -81,7 +81,8 @@ public class ListarColaboradores extends JFrame {
 						null,
 						tableModel.getValueAt(indice, 0) + "\n"
 								+ tableModel.getValueAt(indice, 1));
-
+				Intancias instancia = new Intancias();
+				instancia.getInstanceAgenda().idColaborador.setText(getId());
 				dispose();
 			}
 		});

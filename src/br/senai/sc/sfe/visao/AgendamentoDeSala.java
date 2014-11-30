@@ -23,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 import br.senai.sc.sfe.controle.AgendaControle;
 import br.senai.sc.sfe.controle.PessoaControle;
 import br.senai.sc.sfe.controle.SalaControle;
+import br.senai.sc.sfe.dao.AgendaDao;
 import br.senai.sc.sfe.entity.Agenda;
 import br.senai.sc.sfe.entity.Pessoa;
 import br.senai.sc.sfe.entity.Sala;
@@ -45,8 +46,10 @@ public class AgendamentoDeSala extends JFrame {
 	public JLabel lblColaborador;
 	static ListarColaboradores lc = new ListarColaboradores();
 	static ListarSalas salas = new ListarSalas();
-	private JComboBox comboSalas;
-	private JComboBox comboColaboradores;
+	Intancias instancia;
+	public JTextField idColaborador;
+	public JTextField idSala;
+	AgendaDao agendaDao;
 
 	/**
 	 * Launch the application.
@@ -69,9 +72,14 @@ public class AgendamentoDeSala extends JFrame {
 	 * Create the frame.
 	 */
 	public AgendamentoDeSala() {
+		instancia = new Intancias();
 		agendaC = new AgendaControle();
 		pessoaC = new PessoaControle();
+		agendaDao = new AgendaDao();
 		salaC = new SalaControle();
+		pessoa = new Pessoa();
+		sala = new Sala();
+		agenda = new Agenda();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 482, 515);
 		contentPane = new JPanel();
@@ -122,8 +130,8 @@ public class AgendamentoDeSala extends JFrame {
 		JMenuItem mntmAgendar = new JMenuItem("Agendar");
 		mntmAgendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AgendamentoDeSala agendamento = new AgendamentoDeSala();
-				agendamento.setVisible(true);
+				
+				instancia.getInstanceAgenda().setVisible(true);
 				dispose();
 			}
 		});
@@ -186,7 +194,7 @@ public class AgendamentoDeSala extends JFrame {
 		contentPane.add(lblSala);
 
 		lblColaborador = new JLabel("Colaborador:");
-		lblColaborador.setBounds(219, 141, 102, 14);
+		lblColaborador.setBounds(233, 141, 102, 14);
 		contentPane.add(lblColaborador);
 
 		comboHorario = new JComboBox();
@@ -239,19 +247,29 @@ public class AgendamentoDeSala extends JFrame {
 		btnAgendar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-					pessoa = (Pessoa)comboColaboradores.getSelectedItem();
-					sala = (Sala)comboSalas.getSelectedItem();
-					agenda.getSala().setIdSala(sala.getIdSala());
+					pessoa = pessoaC.buscarPorId(Integer.parseInt(idColaborador.getText()));
+					sala = salaC.buscarPorId(Integer.parseInt(idSala.getText()));
+					
+					System.out.println(pessoa);
+					System.out.println(sala);
+					
+					agenda.getPessoa().setIdPessoa(pessoa.getIdPessoa());
+					agenda.getPessoa().setAreaAtuacao(pessoa.getAreaAtuacao());
+					agenda.getPessoa().setCpf(pessoa.getCpf());
+					agenda.getPessoa().setFuncao(pessoa.getFuncao());
+					agenda.getPessoa().setNome(pessoa.getNome());
 					agenda.getSala().setDescricao(sala.getDescricao());
-					//agenda.get
-					//agenda.setPessoa(pessoa);
+					agenda.getSala().setIdSala(sala.getIdSala());
+					agenda.getSala().setLocalizacao(sala.getLocalizacao());
+					agenda.getSala().setQuantidadeLugares(sala.getQuantidadeLugares());
+					agenda.getSala().setTipo(sala.getTipo());
 					agenda.setHorario((String) comboHorario.getSelectedItem());
 					agenda.setAno((String) comboAno.getSelectedItem());
 					agenda.setDia((String) comboDia.getSelectedItem());
 					agenda.setMes((String) comboMes.getSelectedItem());
 
 					try {
-						agendaC.salvar(agenda);
+						agendaDao.salvar(agenda);
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(null, e.getMessage());
 						e.printStackTrace();
@@ -264,40 +282,44 @@ public class AgendamentoDeSala extends JFrame {
 		JButton btnCancela = new JButton("Cancelar");
 		btnCancela.setBounds(24, 443, 91, 23);
 		contentPane.add(btnCancela);
-
-		comboSalas = new JComboBox();
-		comboSalas.setBounds(24, 166, 182, 20);
-		contentPane.add(comboSalas);
-		carregarSala();
-
-		comboColaboradores = new JComboBox();
-		comboColaboradores.setBounds(219, 166, 228, 20);
-		contentPane.add(comboColaboradores);
-		carregarColaborador();
+		
+		JButton botaoBuscar = new JButton("Buscar");
+		botaoBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				instancia.getInstanceColaboradores().setVisible(true);
+				
+			}
+		});
+		botaoBuscar.setBounds(365, 165, 89, 23);
+		contentPane.add(botaoBuscar);
+		
+		idColaborador = new JTextField();
+		idColaborador.setBounds(233, 166, 121, 20);
+		contentPane.add(idColaborador);
+		idColaborador.setColumns(10);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				instancia.getInstanceSala().setVisible(true);
+				
+			}
+		});
+		btnBuscar.setBounds(134, 165, 89, 23);
+		contentPane.add(btnBuscar);
+		
+		idSala = new JTextField();
+		idSala.setBounds(24, 166, 100, 20);
+		contentPane.add(idSala);
+		idSala.setColumns(10);
 
 	}
 
-	public void carregarSala() {
-		List<Sala> salas = new ArrayList<Sala>();
-		salas = salaC.listar();
-		comboSalas.addItem("Selecione");
-		for (Sala sala2 : salas) {
-			comboSalas.addItem(sala2);
-		}
-	}
-
-	public void carregarColaborador() {
-		List<Pessoa> pessoas = new ArrayList<Pessoa>();
-		pessoas = pessoaC.listar();
-		comboColaboradores.addItem("Selecione");
-		for (Pessoa pessoas2 : pessoas) {
-			comboColaboradores.addItem(pessoas2);
-		}
-	}
+	
 
 	public void carregarAgenda(Agenda agenda) {
-		comboColaboradores.setSelectedItem((agenda.getPessoa().getIdPessoa()));
-		comboSalas.setSelectedItem((agenda.getSala().getIdSala()));
+		idColaborador.setText(String.valueOf(agenda.getPessoa().getIdPessoa()));
+		idSala.setText(String.valueOf(agenda.getSala().getIdSala()));
 		comboAno.setSelectedItem(agenda.getAno());
 		comboDia.setSelectedItem(agenda.getDia());
 		comboHorario.setSelectedItem(agenda.getHorario());
@@ -305,16 +327,11 @@ public class AgendamentoDeSala extends JFrame {
 	}
 
 	public void limpar() {
-		comboColaboradores.setSelectedIndex(0);
-		comboSalas.setSelectedIndex(0);
+		idSala.setText("");
+		idColaborador.setText("");
 		comboAno.setSelectedIndex(0);
 		comboDia.setSelectedIndex(0);
 		comboHorario.setSelectedIndex(0);
 		comboMes.setSelectedIndex(0);
 	}
-
-	// public void atualiza() {
-	// colaborador.setText(lc.getId());
-
-	// }
 }

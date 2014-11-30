@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -32,6 +34,7 @@ public class PesquisaDeSala extends JFrame {
 	private JComboBox comboBusca;
 	SalaControle salaC;
 	Sala sala;
+	private DefaultTableModel tableModel = new DefaultTableModel();
 	/**
 	 * Launch the application.
 	 */
@@ -52,17 +55,18 @@ public class PesquisaDeSala extends JFrame {
 	 * Create the frame.
 	 */
 	public PesquisaDeSala() {
+		salaC = new SalaControle();
 		setTitle("Salas");
 		salaC = new SalaControle();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 450);
+		setBounds(100, 100, 483, 514);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 442, 21);
+		menuBar.setBounds(0, 0, 467, 21);
 		contentPane.add(menuBar);
 		
 		JMenu mnTelaInicial = new JMenu("Tela Inicial");
@@ -104,8 +108,8 @@ public class PesquisaDeSala extends JFrame {
 		JMenuItem mntmAgendar = new JMenuItem("Agendar");
 		mntmAgendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AgendamentoDeSala agendamento = new AgendamentoDeSala();
-				agendamento.setVisible(true);
+				Intancias instancia = new Intancias();
+				instancia.getInstanceAgenda().setVisible(true);
 				dispose();
 			}
 		});
@@ -159,25 +163,25 @@ public class PesquisaDeSala extends JFrame {
 		mnSair.add(mntmSair);
 		
 		JLabel lblPesquisaDeSalas = new JLabel("Pesquisa de Salas");
-		lblPesquisaDeSalas.setBounds(91, 28, 251, 42);
+		lblPesquisaDeSalas.setBounds(105, 47, 251, 42);
 		lblPesquisaDeSalas.setFont(new Font("Arial", Font.PLAIN, 30));
 		contentPane.add(lblPesquisaDeSalas);
 		
 		JLabel lblBuscarPor = new JLabel("Buscar Por:");
-		lblBuscarPor.setBounds(10, 81, 79, 14);
+		lblBuscarPor.setBounds(10, 100, 79, 14);
 		contentPane.add(lblBuscarPor);
 		
 		comboBusca = new JComboBox();
-		comboBusca.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Localiza\u00E7\u00E3o", "Tipo", "Sala", "Lugares"}));
-		comboBusca.setBounds(10, 96, 111, 22);
+		comboBusca.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Localiza\u00E7\u00E3o", "Lugares", "Sala", "Tipo"}));
+		comboBusca.setBounds(10, 115, 111, 22);
 		contentPane.add(comboBusca);
 		
 		JLabel lblPalavraChave = new JLabel("Palavra - Chave:");
-		lblPalavraChave.setBounds(131, 81, 119, 14);
+		lblPalavraChave.setBounds(131, 100, 119, 14);
 		contentPane.add(lblPalavraChave);
 		
 		palavraChave = new JTextField();
-		palavraChave.setBounds(131, 98, 200, 20);
+		palavraChave.setBounds(131, 117, 225, 20);
 		contentPane.add(palavraChave);
 		palavraChave.setColumns(10);
 		
@@ -185,78 +189,115 @@ public class PesquisaDeSala extends JFrame {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String palavra = palavraChave.getText();
-				if(comboBusca.getSelectedIndex() == 1 && palavra ==null){
-					salaC.buscarPorLocalizacao(palavra);
+				if(palavra == null || palavra.trim().isEmpty()){
+					listarTodos();
+				}else{
+				if(comboBusca.getSelectedIndex() == 1){
+					List<Sala> salas = new ArrayList<Sala>();
+					salas=salaC.buscarPorLocalizacao(palavra);
+					limpar();
+					for (Sala salas2 : salas) {
+						tableModel.addRow(new Object[] { salas2.getIdSala(),salas2.getLocalizacao(),
+								salas2.getDescricao(), salas2.getTipo(),
+								salas2.getQuantidadeLugares() });
+					}
 				}
-				if(comboBusca.getSelectedIndex() == 2 && palavra ==null){
-					salaC.buscarPorTipo(palavra);
+				if(comboBusca.getSelectedIndex() == 2){
+					List<Sala> salas = new ArrayList<Sala>();
+					salas=salaC.buscarPorLugares(palavra);
+					limpar();
+					for (Sala salas2 : salas) {
+						tableModel.addRow(new Object[] { salas2.getIdSala(),salas2.getLocalizacao(),
+								salas2.getDescricao(), salas2.getTipo(),
+								salas2.getQuantidadeLugares() });
+					}
+					
 				}
-				if(comboBusca.getSelectedIndex() == 3 && palavra ==null){
-					salaC.buscarPorSala(palavra);
+				if(comboBusca.getSelectedIndex() == 3){
+					List<Sala> salas = new ArrayList<Sala>();
+					salas=salaC.buscarPorSala(palavra);
+					limpar();
+					for (Sala salas2 : salas) {
+						tableModel.addRow(new Object[] { salas2.getIdSala(),salas2.getLocalizacao(),
+								salas2.getDescricao(), salas2.getTipo(),
+								salas2.getQuantidadeLugares() });
+					}
+					
 				}
-				if(comboBusca.getSelectedIndex() == 4 && palavra ==null){
-					salaC.buscarPorLugares(palavra);
-				}
+				if(comboBusca.getSelectedIndex() == 4){
+					List<Sala> salas = new ArrayList<Sala>();
+					salas=salaC.buscarPorTipo(palavra);
+					limpar();
+					for (Sala salas2 : salas) {
+						tableModel.addRow(new Object[] { salas2.getIdSala(),salas2.getLocalizacao(),
+								salas2.getDescricao(), salas2.getTipo(),
+								salas2.getQuantidadeLugares() });
+					}
+					
+				}}
 			}
 		});
-		btnBuscar.setBounds(341, 95, 91, 23);
+		btnBuscar.setBounds(366, 115, 91, 23);
 		contentPane.add(btnBuscar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 129, 422, 249);
+		scrollPane.setBounds(10, 149, 447, 280);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-			},
-			new String[] {
-				"Data", "Localiza\u00E7\u00E3o", "Sala", "Lugares", "Tipo", "Status"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table.getColumnModel().getColumn(5).setResizable(false);
+		tableModel.addColumn("Codigo");
+		tableModel.addColumn("Localização:");
+		tableModel.addColumn("Sala:");
+		tableModel.addColumn("Tipo:");
+		tableModel.addColumn("Nº Lugares:");
+		table.setModel(tableModel);
+		table.getColumnModel().getColumn(0).setPreferredWidth(4);
+		table.getColumnModel().getColumn(2).setPreferredWidth(6);
+		table.getColumnModel().getColumn(4).setPreferredWidth(8);
 		scrollPane.setViewportView(table);
 		
 		JButton btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CadastroDeSalas salas = new CadastroDeSalas();
-				//salas.visualizarSalas(sala);
+				int indice = table.getSelectedRow();
+				salas.visualizarSalas(String.valueOf(tableModel.getValueAt(indice,0)));
 				salas.setVisible(true);
 				dispose();
 				
 			}
 		});
-		btnVisualizar.setBounds(341, 389, 91, 23);
+		btnVisualizar.setBounds(366, 442, 91, 23);
 		contentPane.add(btnVisualizar);
+		
+		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpar();
+			}
+		});
+		btnLimpar.setBounds(10, 442, 89, 23);
+		contentPane.add(btnLimpar);
 	}
 	
-	public void limpar(){
+	public void limpar() {
 		palavraChave.setText("");
 		comboBusca.setSelectedIndex(0);
-		table.removeAll();
+		while (tableModel.getRowCount() > 0) {
+			tableModel.removeRow(0);
+
+		}
 	}
+
+	private void listarTodos() {
+		List<Sala> salas = new ArrayList<Sala>();
+		salas = salaC.listar();
+		limpar();
+		for (Sala salas2 : salas) {
+			tableModel.addRow(new Object[] { salas2.getIdSala(),salas2.getLocalizacao(),
+					salas2.getDescricao(), salas2.getTipo(),
+					salas2.getQuantidadeLugares() });
+		}
+	}
+
 }

@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 public class TelaInicial extends JFrame {
 	
+	Intancias instancia;
 	private JPanel contentPane;
 
 	/**
@@ -37,16 +38,17 @@ public class TelaInicial extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaInicial() {
+		instancia = new Intancias();
 		setTitle("Tela Inicial");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 450);
+		setBounds(100, 100, 483, 516);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 442, 21);
+		menuBar.setBounds(0, 0, 467, 21);
 		contentPane.add(menuBar);
 		
 		JMenu mnTelaInicial = new JMenu("Tela Inicial");
@@ -88,8 +90,8 @@ public class TelaInicial extends JFrame {
 		JMenuItem mntmAgendar = new JMenuItem("Agendar");
 		mntmAgendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AgendamentoDeSala agendamento = new AgendamentoDeSala();
-				agendamento.setVisible(true);
+				
+				instancia.getInstanceAgenda().setVisible(true);
 				dispose();
 			}
 		});
@@ -144,12 +146,12 @@ public class TelaInicial extends JFrame {
 		
 		JLabel lblBemvindo = new JLabel("Bem-Vindo");
 		lblBemvindo.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		lblBemvindo.setBounds(131, 184, 203, 68);
+		lblBemvindo.setBounds(151, 216, 203, 68);
 		contentPane.add(lblBemvindo);
 		
 		JLabel lblUsurio = new JLabel("Usu\u00E1rio");
 		lblUsurio.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblUsurio.setBounds(199, 247, 64, 32);
+		lblUsurio.setBounds(219, 279, 64, 32);
 		contentPane.add(lblUsurio);
 	}
 

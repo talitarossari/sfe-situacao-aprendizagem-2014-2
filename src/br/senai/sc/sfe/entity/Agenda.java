@@ -1,6 +1,7 @@
 package br.senai.sc.sfe.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -80,7 +81,7 @@ public class Agenda implements Serializable {
 
 
 	//bi-directional many-to-one association to Pessoa
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name="idPessoa", nullable=false)
 	public Pessoa getPessoa() {
 		return this.pessoa;
@@ -92,7 +93,7 @@ public class Agenda implements Serializable {
 
 
 	//bi-directional many-to-one association to Sala
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name="idSala", nullable=false)
 	public Sala getSala() {
 		return this.sala;

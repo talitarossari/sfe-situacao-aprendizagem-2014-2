@@ -33,13 +33,10 @@ public class PessoaDao {
 	 * @return Esse metodo salva ou altera a Pessoa
 	 */
 	public Pessoa salvar(Pessoa pessoa) {
+		
 		try {
 			entityManager.getTransaction().begin();
-			if (pessoa.getIdPessoa() == null) {
 				entityManager.persist(pessoa);
-			} else {
-				entityManager.merge(pessoa);
-			}
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
@@ -106,7 +103,7 @@ public class PessoaDao {
 	 */
 	public List<Pessoa> buscarPorNome(String nome) {
 		Query query = entityManager.createQuery(
-				"From Pessoa p where p.nome LIKE :nome", Pessoa.class);
+				"From Pessoa as p where p.nome LIKE :nome", Pessoa.class);
 		query.setParameter("nome", nome);
 		return query.getResultList();
 	}
@@ -117,7 +114,7 @@ public class PessoaDao {
 	 */
 	public List<Pessoa> buscarPorFuncao(String funcao) {
 		Query query = entityManager.createQuery(
-				"From Pessoa p where p.funcao LIKE :funcao", Pessoa.class);
+				"From Pessoa as p where p.funcao LIKE :funcao", Pessoa.class);
 		query.setParameter("funcao", funcao);
 		return query.getResultList();
 	}
@@ -128,7 +125,7 @@ public class PessoaDao {
 	 */
 	public List<Pessoa> buscarPorArea(String area) {
 		Query query = entityManager.createQuery(
-				"From Pessoa p where p.areaAtuacao LIKE :area", Pessoa.class);
+				"From Pessoa as p where p.areaAtuacao LIKE :area", Pessoa.class);
 		query.setParameter("area", area);
 		return query.getResultList();
 	}

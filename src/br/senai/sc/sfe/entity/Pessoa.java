@@ -1,7 +1,9 @@
 package br.senai.sc.sfe.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -49,7 +51,7 @@ public class Pessoa implements Serializable {
 	}
 
 
-	@Column(nullable=false, length=11)
+	@Column(nullable=false, length=15)
 	public String getCpf() {
 		return this.cpf;
 	}
@@ -80,7 +82,7 @@ public class Pessoa implements Serializable {
 
 
 	//bi-directional many-to-one association to Agenda
-	@OneToMany(mappedBy="pessoa", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="pessoa")
 	public List<Agenda> getAgendas() {
 		return this.agendas;
 	}

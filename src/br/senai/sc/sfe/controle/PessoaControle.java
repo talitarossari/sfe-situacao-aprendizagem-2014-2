@@ -41,9 +41,11 @@ public class PessoaControle {
 		if(pessoa.getCpf()==null|| pessoa.getCpf().trim().length() < 14){
 			throw new Exception("O CPF é obrigatório!");
 		}
-		
+		if(pessoa.getIdPessoa()==null || pessoa.getIdPessoa()==0){
 		dao.salvar(pessoa);
-		
+		} else {
+			dao.editar(pessoa);
+		}
 	}
 	/**
 	 * @param id

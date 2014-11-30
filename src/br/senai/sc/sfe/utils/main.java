@@ -18,7 +18,6 @@ public class main {
 		Sala sala = new Sala();
 		Agenda agenda = new Agenda();
 //		Usuario usuario = new Usuario();
-		pessoa.setIdPessoa(1);
 		pessoa.setNome("Teste2");
 		pessoa.setCpf("00000000000");
 		pessoa.setAreaAtuacao("Area de atuacao");
@@ -33,15 +32,15 @@ public class main {
 //		sala.setTipo("Informatica");
 		//daoSala.salvar(sala);
 		
-		//pessoa = dao.buscarPorId(10);
-//		sala = daoSala.buscarPorId(5);
-//		agenda.setAno("2013");
-//		agenda.setDia("23");
-//		agenda.setMes("Fevereiro");
-//		agenda.setPessoa(pessoa);
-//		agenda.setSala(sala);
-//		agenda.setHorario("08h00 - 12h00");
-//		daoAgenda.salvar(agenda);
+		pessoa = dao.buscarPorId(1);
+		sala = daoSala.buscarPorId(1);
+		agenda.setAno("2013");
+		agenda.setDia("23");
+		agenda.setMes("Fevereiro");
+		agenda.setPessoa(pessoa);
+		agenda.setSala(sala);
+		agenda.setHorario("08h00 - 12h00");
+		daoAgenda.salvar(agenda);
 		//daoAgenda.remover(1);
 		
 		//List<Agenda> agendas = new ArrayList<Agenda>();

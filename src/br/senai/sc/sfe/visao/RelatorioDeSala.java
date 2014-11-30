@@ -109,8 +109,8 @@ public class RelatorioDeSala extends JFrame {
 		JMenuItem mntmAgendar = new JMenuItem("Agendar");
 		mntmAgendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AgendamentoDeSala agendamento = new AgendamentoDeSala();
-				agendamento.setVisible(true);
+				Intancias instancia = new Intancias();
+				instancia.getInstanceAgenda().setVisible(true);
 				dispose();
 			}
 		});

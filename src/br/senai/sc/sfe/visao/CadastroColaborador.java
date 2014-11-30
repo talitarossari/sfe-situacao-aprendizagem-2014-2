@@ -58,6 +58,7 @@ public class CadastroColaborador extends JFrame {
 	 * Create the frame.
 	 */
 	public CadastroColaborador() {
+		pessoaC = new PessoaControle();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 483, 513);
 		contentPane = new JPanel();
@@ -108,8 +109,8 @@ public class CadastroColaborador extends JFrame {
 		JMenuItem mntmAgendar = new JMenuItem("Agendar");
 		mntmAgendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AgendamentoDeSala agendamento = new AgendamentoDeSala();
-				agendamento.setVisible(true);
+				Intancias instancia = new Intancias();
+				instancia.getInstanceAgenda().setVisible(true);
 				dispose();
 			}
 		});
@@ -212,14 +213,17 @@ public class CadastroColaborador extends JFrame {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Pessoa pessoa = new Pessoa();
-				pessoa.setIdPessoa(Integer.parseInt(idColaborador.getText()));
+				pessoa.setNome(nomeC.getText());
 				pessoa.setCpf(cpfC.getText());
 				pessoa.setFuncao((String)comboFuncao.getSelectedItem());
 				pessoa.setAreaAtuacao((String)comboAtuacao.getSelectedItem());
+				pessoa.getUsuario().setLogin("a");
+				pessoa.getUsuario().setSenha(00);
 			
 				try {
 					pessoaC.salvar(pessoa);
-					limpar();
+					limpar();				
+					
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					e.printStackTrace();
@@ -267,8 +271,9 @@ public class CadastroColaborador extends JFrame {
 		
 	}
 	
-	public void VerColaborador(Pessoa pessoa){
+	public void VerColaborador(String id){
 		limpar();
+		Pessoa pessoa = pessoaC.buscarPorId(Integer.parseInt(id)); 
 		idColaborador.setText(String.valueOf(pessoa.getIdPessoa()));
 		cpfC.setText(pessoa.getCpf());
 		nomeC.setText(pessoa.getNome());

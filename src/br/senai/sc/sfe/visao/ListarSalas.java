@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import br.senai.sc.sfe.controle.SalaControle;
@@ -30,6 +31,7 @@ public class ListarSalas extends JFrame {
 	Sala sala;
 	SalaControle salaC;
 	private DefaultTableModel tableModel = new DefaultTableModel();
+	String idSalaA;
 
 	/**
 	 * Launch the application.
@@ -76,6 +78,16 @@ public class ListarSalas extends JFrame {
 		JButton btnSelecionar = new JButton("Selecionar");
 		btnSelecionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int indice = table.getSelectedRow();
+				Pessoa pessoa = new Pessoa();
+				idSalaA = String.valueOf(tableModel.getValueAt(indice, 0));
+				JOptionPane.showMessageDialog(
+						null,
+						tableModel.getValueAt(indice, 0) + "\n"
+								+ tableModel.getValueAt(indice, 1));
+				Intancias instancia = new Intancias();
+				instancia.getInstanceAgenda().idSala.setText(idSalaA);
+				
 				dispose();
 			}
 		});

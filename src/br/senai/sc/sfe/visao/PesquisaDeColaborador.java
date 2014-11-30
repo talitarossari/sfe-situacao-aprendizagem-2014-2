@@ -31,6 +31,7 @@ public class PesquisaDeColaborador extends JFrame {
 	private JComboBox comboBusca;
 	PessoaControle pessoaC;
 	Pessoa pessoa;
+	private DefaultTableModel tableModel = new DefaultTableModel();
 	/**
 	 * Launch the application.
 	 */
@@ -203,34 +204,10 @@ public class PesquisaDeColaborador extends JFrame {
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"Nome:", "Fun\u00E7\u00E3o:", "\u00C1rea de Atua\u00E7\u00E3o:"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		tableModel.addColumn("Codigo:");
+		tableModel.addColumn("Nome do Colamorador:");
+		tableModel.addColumn("Função:");
+		table.setModel(tableModel);
 		table.getColumnModel().getColumn(2).setPreferredWidth(108);
 		scrollPane.setViewportView(table);
 		

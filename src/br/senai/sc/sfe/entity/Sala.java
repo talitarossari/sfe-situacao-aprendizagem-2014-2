@@ -1,7 +1,9 @@
 package br.senai.sc.sfe.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -99,6 +101,10 @@ public class Sala implements Serializable {
 		agenda.setSala(null);
 
 		return agenda;
+	}
+	
+	public String toString(){
+		return getLocalizacao() + " - " + getDescricao();
 	}
 
 }

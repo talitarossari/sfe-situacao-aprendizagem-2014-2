@@ -1,6 +1,5 @@
 package br.senai.sc.sfe.visao;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +12,12 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import br.senai.sc.sfe.controle.PessoaControle;
 import br.senai.sc.sfe.entity.Pessoa;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -25,7 +26,10 @@ public class ListarColaboradores extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField codigoP;
-	public static PessoaControle pessoaC;
+	public PessoaControle pessoaC;
+	private DefaultTableModel tableModel = new DefaultTableModel();
+	private JButton btnSeleciona;
+	public static String idDoColaborador = "";
 
 	/**
 	 * Launch the application.
@@ -35,9 +39,8 @@ public class ListarColaboradores extends JFrame {
 			public void run() {
 				try {
 					ListarColaboradores frame = new ListarColaboradores();
-					frame.listarTodos();
-					pessoaC = new PessoaControle();
 					frame.setVisible(true);
+					frame.limpar();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,6 +52,7 @@ public class ListarColaboradores extends JFrame {
 	 * Create the frame.
 	 */
 	public ListarColaboradores() {
+		pessoaC = new PessoaControle();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 483, 514);
 		contentPane = new JPanel();
@@ -61,28 +65,23 @@ public class ListarColaboradores extends JFrame {
 		contentPane.add(scrollPane);
 
 		table = new JTable();
-		table.setModel(new DefaultTableModel(new Object[][] { { null, null },
-				{ null, null }, { null, null }, { null, null }, { null, null },
-				{ null, null }, { null, null }, { null, null }, { null, null },
-				{ null, null }, { null, null }, { null, null }, { null, null },
-				{ null, null }, { null, null }, { null, null }, { null, null },
-				{ null, null }, { null, null }, { null, null }, { null, null },
-				{ null, null }, { null, null }, { null, null }, },
-				new String[] { "C\u00F3digo", "Nome" }) {
-			boolean[] columnEditables = new boolean[] { false, false };
-
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		tableModel.addColumn("Codigo");
+		tableModel.addColumn("Nome Do Colaborador");
+		table.setModel(tableModel);
 		table.getColumnModel().getColumn(0).setPreferredWidth(53);
 		scrollPane.setViewportView(table);
 
-		JButton btnSeleciona = new JButton("Selecionar");
+		btnSeleciona = new JButton("Selecionar");
 		btnSeleciona.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AgendamentoDeSala agenda = new AgendamentoDeSala();
-				agenda.carregarColaborador(table.getSelectedRow());
+				int indice = table.getSelectedRow();
+				Pessoa pessoa = new Pessoa();
+				setId(String.valueOf(tableModel.getValueAt(indice, 0)));
+				JOptionPane.showMessageDialog(
+						null,
+						tableModel.getValueAt(indice, 0) + "\n"
+								+ tableModel.getValueAt(indice, 1));
+
 				dispose();
 			}
 		});
@@ -101,8 +100,17 @@ public class ListarColaboradores extends JFrame {
 		JButton button = new JButton("Buscar");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pessoaC.buscarPorId(Integer.valueOf(codigoP.getText()));
-				limpar();
+
+				if (codigoP.getText() == null
+						|| codigoP.getText().trim().isEmpty()) {
+					listarTodos();
+				} else {
+					Pessoa pessoa1 = pessoaC.buscarPorId(Integer
+							.valueOf(codigoP.getText()));
+					limpar();
+					tableModel.addRow(new Object[] { pessoa1.getIdPessoa(),
+							pessoa1.getNome() });
+				}
 			}
 		});
 		button.setBounds(262, 21, 91, 23);
@@ -110,16 +118,30 @@ public class ListarColaboradores extends JFrame {
 
 	}
 
+	public String getId() {
+		return idDoColaborador;
+	}
+
+	public void setId(String idC) {
+		this.idDoColaborador = idC;
+	}
+
 	private void listarTodos() {
 		List<Pessoa> colaboradores = new ArrayList<Pessoa>();
 		colaboradores = pessoaC.listar();
-
+		limpar();
 		for (Pessoa colaboradores2 : colaboradores) {
-			System.out.println(colaboradores2.getNome());
+			tableModel.addRow(new Object[] { colaboradores2.getIdPessoa(),
+					colaboradores2.getNome() });
 		}
 	}
 
 	public void limpar() {
-		table.removeAll();
+		while (tableModel.getRowCount() > 0) {
+			tableModel.removeRow(0);
+			
+		}
 	}
+
+
 }

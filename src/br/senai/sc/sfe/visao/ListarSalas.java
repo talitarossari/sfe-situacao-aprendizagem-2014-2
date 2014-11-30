@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import br.senai.sc.sfe.controle.SalaControle;
 import br.senai.sc.sfe.entity.Pessoa;
 import br.senai.sc.sfe.entity.Sala;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -28,6 +29,7 @@ public class ListarSalas extends JFrame {
 	private JTextField idSala;
 	Sala sala;
 	SalaControle salaC;
+	private DefaultTableModel tableModel = new DefaultTableModel();
 
 	/**
 	 * Launch the application.
@@ -37,7 +39,6 @@ public class ListarSalas extends JFrame {
 			public void run() {
 				try {
 					ListarSalas frame = new ListarSalas();
-					frame.listarTodos();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,91 +51,79 @@ public class ListarSalas extends JFrame {
 	 * Create the frame.
 	 */
 	public ListarSalas() {
+		salaC = new SalaControle();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 450);
+		setBounds(100, 100, 483, 514);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 58, 422, 319);
+		scrollPane.setBounds(10, 58, 447, 360);
 		contentPane.add(scrollPane);
-		
+
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"C\u00F3digo", "Localiza\u00E7\u00E3o", "Sala", "Lugares", "Status"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		tableModel.addColumn("Codigo");
+		tableModel.addColumn("Localização:");
+		tableModel.addColumn("Sala:");
+		tableModel.addColumn("Tipo:");
+		tableModel.addColumn("Lugares:");
+		table.setModel(tableModel);
 		table.getColumnModel().getColumn(0).setPreferredWidth(58);
 		scrollPane.setViewportView(table);
-		
+
 		JButton btnSelecionar = new JButton("Selecionar");
 		btnSelecionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 			}
 		});
-		btnSelecionar.setBounds(332, 389, 100, 23);
+		table.setModel(tableModel);
+		btnSelecionar.setBounds(357, 442, 100, 23);
 		contentPane.add(btnSelecionar);
-		
+
 		JLabel lblCdigo = new JLabel("C\u00F3digo:");
 		lblCdigo.setBounds(109, 33, 46, 14);
 		contentPane.add(lblCdigo);
-		
+
 		idSala = new JTextField();
 		idSala.setBounds(163, 30, 86, 20);
 		contentPane.add(idSala);
 		idSala.setColumns(10);
-		
+
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				limpar();
+				if (idSala.getText() == null
+						|| idSala.getText().trim().isEmpty()) {
+					listarTodos();
+				} else {
+					
+				}
+			}
+		});
 		btnBuscar.setBounds(260, 29, 91, 23);
 		contentPane.add(btnBuscar);
 	}
-	
+
 	private void listarTodos() {
 		List<Sala> salas = new ArrayList<Sala>();
 		salas = salaC.listar();
-
+		limpar();
 		for (Sala salas2 : salas) {
-			System.out.println(salas2.getDescricao());
+			tableModel.addRow(new Object[] { salas2.getIdSala(),
+					salas2.getLocalizacao(), salas2.getDescricao(),
+					salas2.getTipo(), salas2.getQuantidadeLugares() });
 		}
 	}
 
 	public void limpar() {
-		table.removeAll();
+		idSala.setText("");
+		while (tableModel.getRowCount() > 0) {
+			tableModel.removeRow(0);
+		}
 	}
-	
+
 }

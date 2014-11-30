@@ -115,4 +115,8 @@ public class Pessoa implements Serializable {
 		this.usuario = usuario;
 	}
 
+	public String toString(){
+		return getNome();
+	}
+	
 }

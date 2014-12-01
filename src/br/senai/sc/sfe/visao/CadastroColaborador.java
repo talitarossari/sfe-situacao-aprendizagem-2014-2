@@ -37,6 +37,7 @@ public class CadastroColaborador extends JFrame {
 	private JButton btnCadastrar;
 	private JLabel idColaborador;
 	PessoaControle pessoaC;
+	static Pessoa pessoa;
 
 	/**
 	 * Launch the application.
@@ -59,6 +60,7 @@ public class CadastroColaborador extends JFrame {
 	 */
 	public CadastroColaborador() {
 		pessoaC = new PessoaControle();
+		pessoa = new Pessoa();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 483, 513);
 		contentPane = new JPanel();
@@ -212,7 +214,6 @@ public class CadastroColaborador extends JFrame {
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Pessoa pessoa = new Pessoa();
 				pessoa.setNome(nomeC.getText());
 				pessoa.setCpf(cpfC.getText());
 				pessoa.setFuncao((String)comboFuncao.getSelectedItem());
@@ -244,6 +245,7 @@ public class CadastroColaborador extends JFrame {
 				botaoEditar.setVisible(false);
 				btnCadastrar.setVisible(true);
 				btnCadastrar.setText("Alterar");
+				
 			}
 		});
 		botaoEditar.setBounds(351, 428, 91, 23);
@@ -273,7 +275,7 @@ public class CadastroColaborador extends JFrame {
 	
 	public void VerColaborador(String id){
 		limpar();
-		Pessoa pessoa = pessoaC.buscarPorId(Integer.parseInt(id)); 
+		pessoa = pessoaC.buscarPorId(Integer.parseInt(id)); 
 		idColaborador.setText(String.valueOf(pessoa.getIdPessoa()));
 		cpfC.setText(pessoa.getCpf());
 		nomeC.setText(pessoa.getNome());

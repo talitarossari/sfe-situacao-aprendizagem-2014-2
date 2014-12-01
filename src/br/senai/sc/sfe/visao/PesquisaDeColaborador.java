@@ -166,27 +166,27 @@ public class PesquisaDeColaborador extends JFrame {
 
 		JLabel lblPesquisaDeColaboradores = new JLabel(
 				"Pesquisa de Colaboradores");
-		lblPesquisaDeColaboradores.setBounds(38, 22, 366, 35);
+		lblPesquisaDeColaboradores.setBounds(47, 39, 366, 35);
 		lblPesquisaDeColaboradores.setFont(new Font("Arial", Font.PLAIN, 30));
 		contentPane.add(lblPesquisaDeColaboradores);
 
 		JLabel lblBuscarPor = new JLabel("Buscar Por:");
-		lblBuscarPor.setBounds(10, 67, 103, 14);
+		lblBuscarPor.setBounds(10, 85, 103, 14);
 		contentPane.add(lblBuscarPor);
 
 		comboBusca = new JComboBox();
 		comboBusca.setModel(new DefaultComboBoxModel(new String[] {
 				"Selecione", "Nome", "Fun\u00E7\u00E3o",
 				"\u00C1rea de Atua\u00E7\u00E3o" }));
-		comboBusca.setBounds(10, 83, 103, 22);
+		comboBusca.setBounds(10, 101, 103, 22);
 		contentPane.add(comboBusca);
 
 		JLabel lblPalavraChave = new JLabel("Palavra - Chave:");
-		lblPalavraChave.setBounds(137, 68, 99, 14);
+		lblPalavraChave.setBounds(137, 86, 99, 14);
 		contentPane.add(lblPalavraChave);
 
 		palavraChave = new JTextField();
-		palavraChave.setBounds(137, 85, 220, 20);
+		palavraChave.setBounds(137, 103, 220, 20);
 		contentPane.add(palavraChave);
 		palavraChave.setColumns(10);
 
@@ -242,11 +242,11 @@ public class PesquisaDeColaborador extends JFrame {
 			}
 		});
 
-		btnBuscar.setBounds(367, 83, 91, 23);
+		btnBuscar.setBounds(367, 101, 91, 23);
 		contentPane.add(btnBuscar);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 117, 448, 300);
+		scrollPane.setBounds(10, 135, 448, 300);
 		contentPane.add(scrollPane);
 
 		table = new JTable();
@@ -267,7 +267,7 @@ public class PesquisaDeColaborador extends JFrame {
 				limpar();
 			}
 		});
-		btnLimpar.setBounds(10, 428, 91, 23);
+		btnLimpar.setBounds(10, 442, 91, 23);
 		contentPane.add(btnLimpar);
 
 		JButton btnVisualizar = new JButton("Visualizar");
@@ -282,7 +282,7 @@ public class PesquisaDeColaborador extends JFrame {
 				dispose();
 			}
 		});
-		btnVisualizar.setBounds(367, 428, 91, 23);
+		btnVisualizar.setBounds(367, 442, 91, 23);
 		contentPane.add(btnVisualizar);
 	}
 

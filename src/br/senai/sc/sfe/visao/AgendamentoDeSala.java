@@ -29,6 +29,7 @@ import br.senai.sc.sfe.entity.Pessoa;
 import br.senai.sc.sfe.entity.Sala;
 
 import javax.swing.JTextPane;
+import javax.swing.ImageIcon;
 
 public class AgendamentoDeSala extends JFrame {
 
@@ -249,22 +250,22 @@ public class AgendamentoDeSala extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int result = JOptionPane.showConfirmDialog(null,"Deseja salvar?");
 				if (result == JOptionPane.YES_OPTION) {
+					if(idColaborador.getText()==""){
+						idColaborador.setText("0");
+					} else {
 					pessoa = pessoaC.buscarPorId(Integer.parseInt(idColaborador.getText()));
+					}
+					if(idSala.getText()==""){
+						idColaborador.setText("0");
+					} else {
 					sala = salaC.buscarPorId(Integer.parseInt(idSala.getText()));
+					}
 					
 					System.out.println(pessoa);
 					System.out.println(sala);
 					
-					agenda.getPessoa().setIdPessoa(pessoa.getIdPessoa());
-					agenda.getPessoa().setAreaAtuacao(pessoa.getAreaAtuacao());
-					agenda.getPessoa().setCpf(pessoa.getCpf());
-					agenda.getPessoa().setFuncao(pessoa.getFuncao());
-					agenda.getPessoa().setNome(pessoa.getNome());
-					agenda.getSala().setDescricao(sala.getDescricao());
-					agenda.getSala().setIdSala(sala.getIdSala());
-					agenda.getSala().setLocalizacao(sala.getLocalizacao());
-					agenda.getSala().setQuantidadeLugares(sala.getQuantidadeLugares());
-					agenda.getSala().setTipo(sala.getTipo());
+					agenda.setSala(sala);
+					agenda.setPessoa(pessoa);
 					agenda.setHorario((String) comboHorario.getSelectedItem());
 					agenda.setAno((String) comboAno.getSelectedItem());
 					agenda.setDia((String) comboDia.getSelectedItem());
@@ -274,7 +275,7 @@ public class AgendamentoDeSala extends JFrame {
 					
 					try {
 						
-						agendaDao.salvar(agenda);
+						agendaC.salvar(agenda);
 						
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(null, e.getMessage());
@@ -312,6 +313,7 @@ public class AgendamentoDeSala extends JFrame {
 		contentPane.add(botaoBuscar);
 		
 		idColaborador = new JTextField();
+		idColaborador.setEnabled(false);
 		idColaborador.setBounds(233, 166, 121, 20);
 		contentPane.add(idColaborador);
 		idColaborador.setColumns(10);
@@ -327,9 +329,15 @@ public class AgendamentoDeSala extends JFrame {
 		contentPane.add(btnBuscar);
 		
 		idSala = new JTextField();
+		idSala.setEnabled(false);
 		idSala.setBounds(24, 166, 100, 20);
 		contentPane.add(idSala);
 		idSala.setColumns(10);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("C:\\Users\\big\\Desktop\\FUNDO.png"));
+		label.setBounds(0, 11, 466, 466);
+		contentPane.add(label);
 
 	}
 

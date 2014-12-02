@@ -81,8 +81,8 @@ public class Agenda implements Serializable {
 
 
 	//bi-directional many-to-one association to Pessoa
-	@ManyToOne(fetch=FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.DETACH})
-	@JoinColumn(name="idPessoa", nullable=false)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="idPessoa", nullable=true)
 	public Pessoa getPessoa() {
 		return this.pessoa;
 	}
@@ -93,8 +93,8 @@ public class Agenda implements Serializable {
 
 
 	//bi-directional many-to-one association to Sala
-	@ManyToOne(fetch=FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.DETACH})
-	@JoinColumn(name="idSala", nullable=false)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="idSala", nullable=true)
 	public Sala getSala() {
 		return this.sala;
 	}

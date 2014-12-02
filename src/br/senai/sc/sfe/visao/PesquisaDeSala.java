@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 
 import br.senai.sc.sfe.controle.SalaControle;
 import br.senai.sc.sfe.entity.Sala;
+import javax.swing.ImageIcon;
 
 public class PesquisaDeSala extends JFrame {
 
@@ -278,6 +279,11 @@ public class PesquisaDeSala extends JFrame {
 		});
 		btnLimpar.setBounds(10, 442, 89, 23);
 		contentPane.add(btnLimpar);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("C:\\Users\\big\\Desktop\\FUNDO.png"));
+		label.setBounds(0, 11, 466, 466);
+		contentPane.add(label);
 	}
 	
 	public void limpar() {

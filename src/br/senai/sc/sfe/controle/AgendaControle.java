@@ -33,8 +33,8 @@ public class AgendaControle {
 	 */
 	public void salvar(Agenda agenda) throws Exception {
 		
-		if(agenda.getSala().getIdSala()<=0){
-			throw new Exception("A sala nao foi selecionada!");
+		if(agenda.getSala().getIdSala()==0){
+			throw new Exception("A sala não foi selecionada!");
 		}
 		if(agenda.getPessoa().getIdPessoa()<=0){
 			throw new Exception("O Colaborador nao foi selecionado!");

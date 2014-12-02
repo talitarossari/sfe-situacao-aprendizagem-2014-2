@@ -29,20 +29,21 @@ public class SalaControle {
 	 * Esse metodo valida os campos(Vê se eles estao vazios) e salva ou altera a Sala
 	 */
 	public void salvar(Sala sala) throws Exception {
-		if (sala.getDescricao() == null || sala.getDescricao().trim().isEmpty()) {
-			throw new Exception("A descricao eh obrigatoria!");
-		}
 		if (sala.getLocalizacao() == null
 				|| sala.getLocalizacao().trim().isEmpty()) {
-			throw new Exception("A localizacao eh obrigatoria!");
+			throw new Exception("A localizacao é obrigatória!");
+		}
+		if (sala.getDescricao() == null || sala.getDescricao().trim().isEmpty()) {
+			throw new Exception("A descricao é obrigatória!");
+		}
+		if (sala.getTipo() == null || sala.getTipo().trim().isEmpty()|| sala.getTipo() == "Selecione") {
+			throw new Exception("O tipo de sala é obrigatório!");
 		}
 		if (sala.getQuantidadeLugares() == null
-				|| sala.getQuantidadeLugares().trim().isEmpty()) {
-			throw new Exception("A quantidade de lugares eh obrigatoria");
+				|| sala.getQuantidadeLugares().trim().isEmpty()|| sala.getQuantidadeLugares()  == "Selecione") {
+			throw new Exception("A quantidade de lugares é obrigatória");
 		}
-		if (sala.getTipo() == null || sala.getTipo().trim().isEmpty()) {
-			throw new Exception("O tipo de sala eh obrigatorio!");
-		} else {
+		 else {
 			dao.salvar(sala);
 		}
 	}

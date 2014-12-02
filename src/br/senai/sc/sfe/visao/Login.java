@@ -21,7 +21,7 @@ import javax.swing.ImageIcon;
 public class Login extends JFrame {
 	
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField usu;
 	private JPasswordField passwordField;
 
 	/**
@@ -60,10 +60,10 @@ public class Login extends JFrame {
 		lblSenha.setBounds(28, 299, 51, 14);
 		contentPane.add(lblSenha);
 		
-		textField = new JTextField();
-		textField.setBounds(83, 265, 190, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		usu = new JTextField();
+		usu.setBounds(83, 265, 190, 20);
+		contentPane.add(usu);
+		usu.setColumns(10);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(83, 296, 190, 20);
@@ -72,24 +72,17 @@ public class Login extends JFrame {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UsuarioControle usuarioC = new UsuarioControle();
-				Integer senha = Integer.parseInt(passwordField.getText());
-				boolean resultado = usuarioC.buscarUsuario(textField.getText(), senha);
-				if(resultado){
-				TelaInicial tela = new TelaInicial();
-				tela.setVisible(true);
-				dispose();
-				}
-				else{
-					JOptionPane.showMessageDialog(null, "Usuario e/ou senha Incorreto!");
-				}
+			
+						TelaInicial ti = new TelaInicial();
+						ti.setVisible(true);
+						dispose();
 			}
 		});
 		btnEntrar.setBounds(124, 327, 91, 23);
 		contentPane.add(btnEntrar);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\big\\Downloads\\login sfe.jpg"));
+		label.setIcon(new ImageIcon("C:\\Users\\big\\Desktop\\Login.jpg"));
 		label.setBounds(0, 0, 319, 404);
 		contentPane.add(label);
 	}

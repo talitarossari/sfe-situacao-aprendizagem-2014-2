@@ -82,7 +82,7 @@ public class Pessoa implements Serializable {
 
 
 	//bi-directional many-to-one association to Agenda
-	@OneToMany(mappedBy="pessoa", cascade = { CascadeType.PERSIST, CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL)
 	public List<Agenda> getAgendas() {
 		return this.agendas;
 	}

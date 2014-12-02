@@ -22,6 +22,7 @@ import br.senai.sc.sfe.controle.SalaControle;
 import br.senai.sc.sfe.dao.SalaDao;
 import br.senai.sc.sfe.entity.Sala;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class CadastroDeSalas extends JFrame {
 
@@ -229,7 +230,7 @@ public class CadastroDeSalas extends JFrame {
 						.getSelectedItem());
 				sala.setTipo((String) comboTipo.getSelectedItem());
 				try {
-					salaDao.salvar(sala);
+					salaC.salvar(sala);
 					limpar();
 					JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
 				} catch (Exception ee) {
@@ -318,6 +319,11 @@ public class CadastroDeSalas extends JFrame {
 		});
 		botaoCancelar.setBounds(25, 427, 89, 23);
 		contentPane.add(botaoCancelar);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setIcon(new ImageIcon("C:\\Users\\big\\Desktop\\FUNDO.png"));
+		label_1.setBounds(10, 11, 466, 466);
+		contentPane.add(label_1);
 		botaoCancelar.setVisible(false);
 		botaoExcluir.setVisible(false);
 

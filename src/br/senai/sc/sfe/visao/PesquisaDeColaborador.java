@@ -26,6 +26,7 @@ import br.senai.sc.sfe.controle.PessoaControle;
 import br.senai.sc.sfe.entity.Pessoa;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.ImageIcon;
 
 public class PesquisaDeColaborador extends JFrame {
 
@@ -284,6 +285,11 @@ public class PesquisaDeColaborador extends JFrame {
 		});
 		btnVisualizar.setBounds(367, 442, 91, 23);
 		contentPane.add(btnVisualizar);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("C:\\Users\\big\\Desktop\\FUNDO.png"));
+		label.setBounds(0, -108, 466, 584);
+		contentPane.add(label);
 	}
 
 	public void limpar() {

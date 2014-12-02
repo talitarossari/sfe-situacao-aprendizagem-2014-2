@@ -23,6 +23,7 @@ import javax.swing.text.MaskFormatter;
 import br.senai.sc.sfe.controle.PessoaControle;
 import br.senai.sc.sfe.entity.Pessoa;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class CadastroColaborador extends JFrame {
 
@@ -224,14 +225,16 @@ public class CadastroColaborador extends JFrame {
 				pessoa.setCpf(cpfC.getText());
 				pessoa.setFuncao((String)comboFuncao.getSelectedItem());
 				pessoa.setAreaAtuacao((String)comboAtuacao.getSelectedItem());
-				pessoa.getUsuario().setLogin("a");
-				pessoa.getUsuario().setSenha(00);
+				pessoa.getUsuario().setLogin("Talita_Rossari");
+				pessoa.getUsuario().setSenha(1234);
 			
 				try {
 					pessoaC.salvar(pessoa);
 					int result2 = JOptionPane.showConfirmDialog(null,
 							"Deseja continuar na tela?");
-					if (result2 == JOptionPane.OK_CANCEL_OPTION) {
+					if (result2 == JOptionPane.YES_OPTION) {
+						limpar();
+					} else {
 						TelaInicial ti = new TelaInicial();
 						ti.setVisible(true);
 						dispose();
@@ -261,6 +264,7 @@ public class CadastroColaborador extends JFrame {
 				btnCadastrar.setVisible(true);
 				btnCadastrar.setText("Alterar");
 				labelCad.setText("Editar Colaborador");
+				botaoExcluir.setVisible(true);
 				}
 			}
 		});
@@ -330,11 +334,13 @@ public class CadastroColaborador extends JFrame {
 					pessoaC.salvar(pessoa);
 					int result2 = JOptionPane.showConfirmDialog(null,
 							"Deseja continuar na tela?");
-					if (result2 == JOptionPane.OK_CANCEL_OPTION) {
+					if (result2 == JOptionPane.YES_OPTION) {
 						PesquisaDeColaborador pc=new PesquisaDeColaborador();
 						pc.listarTodos();
 						pc.setVisible(true);
 						dispose();
+						
+					} else {
 						
 					}
 					
@@ -347,6 +353,11 @@ public class CadastroColaborador extends JFrame {
 		});
 		botaoSalvar.setBounds(353, 428, 89, 23);
 		contentPane.add(botaoSalvar);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("C:\\Users\\big\\Desktop\\FUNDO.png"));
+		label.setBounds(1, 0, 466, 466);
+		contentPane.add(label);
 		botaoExcluir.setVisible(false);
 		botaoCancelar.setVisible(false);
 		botaoEditar.setVisible(false);

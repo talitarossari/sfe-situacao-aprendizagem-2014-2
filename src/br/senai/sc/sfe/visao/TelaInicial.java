@@ -145,11 +145,10 @@ public class TelaInicial extends JFrame {
 		});
 		mnSair.add(mntmSair);
 		
-		JLabel lblUsurio = new JLabel("");
-		lblUsurio.setIcon(new ImageIcon("C:\\Users\\big\\Downloads\\sfe.jpg"));
-		lblUsurio.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblUsurio.setBounds(0, 21, 480, 457);
-		contentPane.add(lblUsurio);
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("C:\\Users\\big\\Desktop\\Bem Vindo.jpg"));
+		label.setBounds(0, 11, 480, 466);
+		contentPane.add(label);
 	}
 
 }

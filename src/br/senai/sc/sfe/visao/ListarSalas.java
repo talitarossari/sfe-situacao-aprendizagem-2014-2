@@ -22,6 +22,7 @@ import br.senai.sc.sfe.entity.Sala;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class ListarSalas extends JFrame {
 
@@ -72,7 +73,7 @@ public class ListarSalas extends JFrame {
 		tableModel.addColumn("Tipo:");
 		tableModel.addColumn("Lugares:");
 		table.setModel(tableModel);
-		table.getColumnModel().getColumn(0).setPreferredWidth(58);
+		table.getColumnModel().getColumn(0).setPreferredWidth(10);
 		scrollPane.setViewportView(table);
 
 		JButton btnSelecionar = new JButton("Selecionar");
@@ -80,7 +81,7 @@ public class ListarSalas extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int result2 = JOptionPane.showConfirmDialog(null,
 						"Deseja selecionar esta sala?");
-				if (result2 == JOptionPane.OK_CANCEL_OPTION) {
+				if (result2 == JOptionPane.YES_OPTION) {
 				int indice = table.getSelectedRow();
 				Pessoa pessoa = new Pessoa();
 				idSalaA = String.valueOf(tableModel.getValueAt(indice, 0));
@@ -118,6 +119,11 @@ public class ListarSalas extends JFrame {
 		});
 		btnBuscar.setBounds(260, 29, 91, 23);
 		contentPane.add(btnBuscar);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("C:\\Users\\big\\Desktop\\FUNDO.png"));
+		label.setBounds(10, -179, 466, 655);
+		contentPane.add(label);
 	}
 
 	private void listarTodos() {

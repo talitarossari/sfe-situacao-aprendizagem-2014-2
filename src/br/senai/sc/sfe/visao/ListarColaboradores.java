@@ -30,6 +30,7 @@ public class ListarColaboradores extends JFrame {
 	private DefaultTableModel tableModel = new DefaultTableModel();
 	private JButton btnSeleciona;
 	public static String idDoColaborador = "";
+	private JLabel label_1;
 
 	/**
 	 * Launch the application.
@@ -68,7 +69,7 @@ public class ListarColaboradores extends JFrame {
 		tableModel.addColumn("Codigo");
 		tableModel.addColumn("Nome Do Colaborador");
 		table.setModel(tableModel);
-		table.getColumnModel().getColumn(0).setPreferredWidth(53);
+		table.getColumnModel().getColumn(0).setPreferredWidth(10);
 		scrollPane.setViewportView(table);
 
 		btnSeleciona = new JButton("Selecionar");
@@ -76,7 +77,7 @@ public class ListarColaboradores extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int result2 = JOptionPane.showConfirmDialog(null,
 						"Deseja selecionar este funcionario?");
-				if (result2 == JOptionPane.OK_CANCEL_OPTION) {
+				if (result2 == JOptionPane.YES_OPTION) {
 				int indice = table.getSelectedRow();
 				Pessoa pessoa = new Pessoa();
 				setId(String.valueOf(tableModel.getValueAt(indice, 0)));
@@ -101,13 +102,11 @@ public class ListarColaboradores extends JFrame {
 		JButton button = new JButton("Buscar");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				if (codigoP.getText() == null
 						|| codigoP.getText().trim().isEmpty()) {
 					listarTodos();
 				} else {
-					Pessoa pessoa1 = pessoaC.buscarPorId(Integer
-							.valueOf(codigoP.getText()));
+					Pessoa pessoa1 = pessoaC.buscarPorId(Integer.valueOf(codigoP.getText()));
 					limpar();
 					tableModel.addRow(new Object[] { pessoa1.getIdPessoa(),
 							pessoa1.getNome() });
@@ -116,6 +115,10 @@ public class ListarColaboradores extends JFrame {
 		});
 		button.setBounds(262, 21, 91, 23);
 		contentPane.add(button);
+		
+		label_1 = new JLabel("");
+		label_1.setBounds(0, -177, 466, 653);
+		contentPane.add(label_1);
 
 	}
 

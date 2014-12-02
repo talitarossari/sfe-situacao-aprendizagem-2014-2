@@ -29,17 +29,17 @@ public class PessoaControle {
 	 * Esse metodo valida os campos(Vê se eles estao vazios) e salva ou altera a Pessoa
 	 */
 	public void salvar(Pessoa pessoa) throws Exception {
-		if (pessoa.getNome() == null || pessoa.getNome().trim().isEmpty()) {
-			throw new Exception("O nome é obrigatorio!");
-		}
-		if (pessoa.getFuncao() == null || pessoa.getFuncao().trim().isEmpty()) {
-			throw new Exception("A fução é obrigatoria!");
-		}
-		if (pessoa.getAreaAtuacao() == null || pessoa.getAreaAtuacao().trim().isEmpty()) {
-			throw new Exception("A área de atuação é obrigatória!");
-		}
 		if(pessoa.getCpf()==null|| pessoa.getCpf().trim().length() < 14){
 			throw new Exception("O CPF é obrigatório!");
+		}
+		if (pessoa.getNome() == null || pessoa.getNome().trim().isEmpty()) {
+			throw new Exception("O nome é obrigatório!");
+		}
+		if (pessoa.getFuncao() == null || pessoa.getFuncao().trim().isEmpty()|| pessoa.getFuncao()=="Selecione") {
+			throw new Exception("A função é obrigatória!");
+		}
+		if (pessoa.getAreaAtuacao() == null || pessoa.getAreaAtuacao().trim().isEmpty()|| pessoa.getAreaAtuacao()=="Selecione") {
+			throw new Exception("A área de atuação é obrigatória!");
 		}
 		if(pessoa.getIdPessoa()==null || pessoa.getIdPessoa()==0){
 		dao.salvar(pessoa);

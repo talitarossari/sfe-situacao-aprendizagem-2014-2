@@ -27,6 +27,7 @@ import br.senai.sc.sfe.controle.SalaControle;
 import br.senai.sc.sfe.entity.Agenda;
 import br.senai.sc.sfe.entity.Sala;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class RelatorioDeSala extends JFrame {
 
@@ -224,6 +225,11 @@ public class RelatorioDeSala extends JFrame {
 		comboAno.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "2014"}));
 		comboAno.setBounds(57, 102, 91, 22);
 		contentPane.add(comboAno);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("C:\\Users\\big\\Desktop\\FUNDO.png"));
+		label.setBounds(0, 11, 466, 466);
+		contentPane.add(label);
 	}
 	
 	public void limpar(){

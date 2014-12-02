@@ -78,17 +78,17 @@ public class ListarSalas extends JFrame {
 		JButton btnSelecionar = new JButton("Selecionar");
 		btnSelecionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int result2 = JOptionPane.showConfirmDialog(null,
+						"Deseja selecionar esta sala?");
+				if (result2 == JOptionPane.OK_CANCEL_OPTION) {
 				int indice = table.getSelectedRow();
 				Pessoa pessoa = new Pessoa();
 				idSalaA = String.valueOf(tableModel.getValueAt(indice, 0));
-				JOptionPane.showMessageDialog(
-						null,
-						tableModel.getValueAt(indice, 0) + "\n"
-								+ tableModel.getValueAt(indice, 1));
-				Intancias instancia = new Intancias();
+				Instancias instancia = new Instancias();
 				instancia.getInstanceAgenda().idSala.setText(idSalaA);
 				
 				dispose();
+				}
 			}
 		});
 		table.setModel(tableModel);

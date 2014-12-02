@@ -1,6 +1,6 @@
 package br.senai.sc.sfe.visao;
 
-public class Intancias {
+public class Instancias {
 
 	private static AgendamentoDeSala instanciaAgendamento;
 	private static ListarSalas instanciaSala;

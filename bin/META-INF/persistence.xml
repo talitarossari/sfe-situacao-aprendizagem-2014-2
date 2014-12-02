@@ -9,6 +9,8 @@
 		<class>br.senai.sc.sfe.entity.Pessoa</class>
 		<class>br.senai.sc.sfe.entity.Sala</class>
 		<class>br.senai.sc.sfe.entity.Usuario</class>
+		
+		
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/situacao_sfe_db" />
 			<property name="javax.persistence.jdbc.user" value="root" />

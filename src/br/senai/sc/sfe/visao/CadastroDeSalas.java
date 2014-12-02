@@ -21,12 +21,13 @@ import javax.swing.border.EmptyBorder;
 import br.senai.sc.sfe.controle.SalaControle;
 import br.senai.sc.sfe.dao.SalaDao;
 import br.senai.sc.sfe.entity.Sala;
+import javax.swing.SwingConstants;
 
 public class CadastroDeSalas extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField descricaoSala;
-	private JLabel lblCadastroDeSalas;
+	private JLabel label;
 	private JComboBox comboLocalizacao;
 	private JComboBox comboTipo;
 	private JComboBox comboLugares;
@@ -38,6 +39,7 @@ public class CadastroDeSalas extends JFrame {
 	SalaControle salaC;
 	static Sala sala;
 	private JLabel idSala;
+	private JButton botaoCancelar;
 
 	/**
 	 * Launch the application.
@@ -62,6 +64,7 @@ public class CadastroDeSalas extends JFrame {
 	public CadastroDeSalas() {
 		sala = new Sala();
 		salaC = new SalaControle();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 483, 513);
 		contentPane = new JPanel();
@@ -114,7 +117,7 @@ public class CadastroDeSalas extends JFrame {
 		JMenuItem mntmAgendar = new JMenuItem("Agendar");
 		mntmAgendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Intancias instancia = new Intancias();
+				Instancias instancia = new Instancias();
 				instancia.getInstanceAgenda().setVisible(true);
 				dispose();
 			}
@@ -168,10 +171,11 @@ public class CadastroDeSalas extends JFrame {
 		});
 		mnSair.add(mntmSair);
 
-		lblCadastroDeSalas = new JLabel("Cadastro De Salas");
-		lblCadastroDeSalas.setFont(new Font("Arial", Font.BOLD, 30));
-		lblCadastroDeSalas.setBounds(99, 47, 270, 31);
-		contentPane.add(lblCadastroDeSalas);
+		label = new JLabel("Cadastro De Salas");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setFont(new Font("Arial", Font.BOLD, 30));
+		label.setBounds(0, 43, 467, 46);
+		contentPane.add(label);
 
 		JLabel lblNewLabel = new JLabel("Localiza\u00E7\u00E3o:");
 		lblNewLabel.setBounds(60, 143, 79, 14);
@@ -217,6 +221,8 @@ public class CadastroDeSalas extends JFrame {
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int result = JOptionPane.showConfirmDialog(null,"Deseja salvar?");
+				if (result == JOptionPane.YES_OPTION) {
 				sala.setLocalizacao((String) comboLocalizacao.getSelectedItem());
 				sala.setDescricao(descricaoSala.getText());
 				sala.setQuantidadeLugares((String) comboLugares
@@ -230,7 +236,7 @@ public class CadastroDeSalas extends JFrame {
 					JOptionPane.showMessageDialog(null, ee.getMessage());
 					ee.printStackTrace();
 				}
-			}
+			}}
 		});
 		btnCadastrar.setBounds(351, 427, 91, 23);
 		contentPane.add(btnCadastrar);
@@ -248,7 +254,7 @@ public class CadastroDeSalas extends JFrame {
 		});
 		btnCancelar.setBounds(23, 427, 91, 23);
 		contentPane.add(btnCancelar);
-
+		
 		comboLugares = new JComboBox();
 		comboLugares.setModel(new DefaultComboBoxModel(new String[] {
 				"Selecione", "00 - 10", "10 - 20", "20 - 30", "30 - 40",
@@ -276,6 +282,8 @@ public class CadastroDeSalas extends JFrame {
 		botaoEditar = new JButton("Editar");
 		botaoEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int result = JOptionPane.showConfirmDialog(null,"Deseja editar?");
+				if (result == JOptionPane.YES_OPTION) {
 				comboLocalizacao.setEnabled(true);
 				comboTipo.setEnabled(true);
 				comboLugares.setEnabled(true);
@@ -284,6 +292,8 @@ public class CadastroDeSalas extends JFrame {
 				btnCadastrar.setVisible(true);
 				btnCadastrar.setText("Alterar");
 				botaoExcluir.setVisible(true);
+				label.setText("Editar Sala:");
+				}
 
 			}
 		});
@@ -294,6 +304,21 @@ public class CadastroDeSalas extends JFrame {
 		idSala = new JLabel("");
 		idSala.setBounds(378, 83, 46, 14);
 		contentPane.add(idSala);
+		
+		botaoCancelar = new JButton("Cancelar");
+		botaoCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int result = JOptionPane.showConfirmDialog(null,"Deseja salvar?");
+				if (result == JOptionPane.YES_OPTION) {
+					PesquisaDeSala ps = new PesquisaDeSala();
+					ps.listarTodos();
+					ps.setVisible(true);
+				}
+			}
+		});
+		botaoCancelar.setBounds(25, 427, 89, 23);
+		contentPane.add(botaoCancelar);
+		botaoCancelar.setVisible(false);
 		botaoExcluir.setVisible(false);
 
 	}
@@ -304,13 +329,16 @@ public class CadastroDeSalas extends JFrame {
 		descricaoSala.setText(sala.getDescricao());
 		comboTipo.setSelectedItem(sala.getTipo());
 		comboLugares.setSelectedItem(sala.getQuantidadeLugares());
-		lblCadastroDeSalas.setText("Visualizar Sala:");
+		label.setText("Visualizar Sala:");
 		botaoEditar.setVisible(true);
 		btnCadastrar.setVisible(false);
 		comboLocalizacao.setEnabled(false);
 		comboTipo.setEnabled(false);
 		descricaoSala.setEditable(false);
 		comboLugares.setEnabled(false);
+		botaoCancelar.setVisible(true);
+		btnCancelar.setVisible(false);
+		
 	}
 
 	public void limpar() {

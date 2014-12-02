@@ -12,10 +12,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 
 public class TelaInicial extends JFrame {
 	
-	Intancias instancia;
+	Instancias instancia;
 	private JPanel contentPane;
 
 	/**
@@ -38,10 +39,10 @@ public class TelaInicial extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaInicial() {
-		instancia = new Intancias();
+		instancia = new Instancias();
 		setTitle("Tela Inicial");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 483, 516);
+		setBounds(100, 100, 496, 516);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -144,14 +145,10 @@ public class TelaInicial extends JFrame {
 		});
 		mnSair.add(mntmSair);
 		
-		JLabel lblBemvindo = new JLabel("Bem-Vindo");
-		lblBemvindo.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		lblBemvindo.setBounds(151, 216, 203, 68);
-		contentPane.add(lblBemvindo);
-		
-		JLabel lblUsurio = new JLabel("Usu\u00E1rio");
+		JLabel lblUsurio = new JLabel("");
+		lblUsurio.setIcon(new ImageIcon("C:\\Users\\big\\Downloads\\sfe.jpg"));
 		lblUsurio.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblUsurio.setBounds(219, 279, 64, 32);
+		lblUsurio.setBounds(0, 21, 480, 457);
 		contentPane.add(lblUsurio);
 	}
 

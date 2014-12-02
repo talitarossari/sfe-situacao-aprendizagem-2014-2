@@ -16,6 +16,7 @@ import br.senai.sc.sfe.controle.UsuarioControle;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class Login extends JFrame {
 	
@@ -45,27 +46,27 @@ public class Login extends JFrame {
 	public Login() {
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 322, 442);
+		setBounds(100, 100, 335, 442);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblUsuario = new JLabel("Usu\u00E1rio:");
-		lblUsuario.setBounds(25, 268, 51, 14);
+		lblUsuario.setBounds(28, 268, 51, 14);
 		contentPane.add(lblUsuario);
 		
 		JLabel lblSenha = new JLabel("   Senha:");
-		lblSenha.setBounds(25, 299, 51, 14);
+		lblSenha.setBounds(28, 299, 51, 14);
 		contentPane.add(lblSenha);
 		
 		textField = new JTextField();
-		textField.setBounds(80, 265, 190, 20);
+		textField.setBounds(83, 265, 190, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(80, 296, 190, 20);
+		passwordField.setBounds(83, 296, 190, 20);
 		contentPane.add(passwordField);
 		
 		JButton btnEntrar = new JButton("Entrar");
@@ -84,8 +85,12 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		btnEntrar.setBounds(109, 327, 91, 23);
+		btnEntrar.setBounds(124, 327, 91, 23);
 		contentPane.add(btnEntrar);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("C:\\Users\\big\\Downloads\\login sfe.jpg"));
+		label.setBounds(0, 0, 319, 404);
+		contentPane.add(label);
 	}
-
 }

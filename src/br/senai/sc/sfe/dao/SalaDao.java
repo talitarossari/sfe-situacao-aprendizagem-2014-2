@@ -124,7 +124,7 @@ public class SalaDao {
 	 */
 	public List<Sala> buscarPorLugares(String lugares) {
 		Query query = entityManager.createQuery(
-				"From Sala as s where s.quantidadeLugares LIKE lugares", Sala.class);
+				"From Sala as s where s.quantidadeLugares LIKE :lugares", Sala.class);
 		query.setParameter("lugares", lugares);
 		return query.getResultList();
 	}

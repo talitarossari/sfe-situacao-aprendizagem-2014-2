@@ -110,7 +110,7 @@ public class PesquisaDeColaborador extends JFrame {
 		JMenuItem mntmAgendar = new JMenuItem("Agendar");
 		mntmAgendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Intancias instancia = new Intancias();
+				Instancias instancia = new Instancias();
 				instancia.getInstanceAgenda().setVisible(true);
 				dispose();
 			}
@@ -295,7 +295,7 @@ public class PesquisaDeColaborador extends JFrame {
 		}
 	}
 
-	private void listarTodos() {
+	public void listarTodos() {
 		List<Pessoa> colaboradores = new ArrayList<Pessoa>();
 		colaboradores = pessoaC.listar();
 		limpar();

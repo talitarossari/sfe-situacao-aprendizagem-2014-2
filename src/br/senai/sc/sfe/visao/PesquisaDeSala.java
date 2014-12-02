@@ -108,7 +108,7 @@ public class PesquisaDeSala extends JFrame {
 		JMenuItem mntmAgendar = new JMenuItem("Agendar");
 		mntmAgendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Intancias instancia = new Intancias();
+				Instancias instancia = new Instancias();
 				instancia.getInstanceAgenda().setVisible(true);
 				dispose();
 			}
@@ -289,7 +289,7 @@ public class PesquisaDeSala extends JFrame {
 		}
 	}
 
-	private void listarTodos() {
+	public void listarTodos() {
 		List<Sala> salas = new ArrayList<Sala>();
 		salas = salaC.listar();
 		limpar();

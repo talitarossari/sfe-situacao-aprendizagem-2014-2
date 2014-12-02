@@ -74,16 +74,16 @@ public class ListarColaboradores extends JFrame {
 		btnSeleciona = new JButton("Selecionar");
 		btnSeleciona.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int result2 = JOptionPane.showConfirmDialog(null,
+						"Deseja selecionar este funcionario?");
+				if (result2 == JOptionPane.OK_CANCEL_OPTION) {
 				int indice = table.getSelectedRow();
 				Pessoa pessoa = new Pessoa();
 				setId(String.valueOf(tableModel.getValueAt(indice, 0)));
-				JOptionPane.showMessageDialog(
-						null,
-						tableModel.getValueAt(indice, 0) + "\n"
-								+ tableModel.getValueAt(indice, 1));
-				Intancias instancia = new Intancias();
+				Instancias instancia = new Instancias();
 				instancia.getInstanceAgenda().idColaborador.setText(getId());
 				dispose();
+				}
 			}
 		});
 		btnSeleciona.setBounds(357, 442, 100, 23);

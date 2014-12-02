@@ -22,6 +22,7 @@ import javax.swing.text.MaskFormatter;
 
 import br.senai.sc.sfe.controle.PessoaControle;
 import br.senai.sc.sfe.entity.Pessoa;
+import javax.swing.SwingConstants;
 
 public class CadastroColaborador extends JFrame {
 
@@ -38,6 +39,8 @@ public class CadastroColaborador extends JFrame {
 	private JLabel idColaborador;
 	PessoaControle pessoaC;
 	static Pessoa pessoa;
+	private JButton btnCancelar;
+	private JButton botaoSalvar;
 
 	/**
 	 * Launch the application.
@@ -111,7 +114,7 @@ public class CadastroColaborador extends JFrame {
 		JMenuItem mntmAgendar = new JMenuItem("Agendar");
 		mntmAgendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Intancias instancia = new Intancias();
+				Instancias instancia = new Instancias();
 				instancia.getInstanceAgenda().setVisible(true);
 				dispose();
 			}
@@ -159,15 +162,15 @@ public class CadastroColaborador extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Login login = new Login();
 				login.setVisible(true);
-				
 				dispose();
 			}
 		});
 		mnSair.add(mntmSair);
 		
 		labelCad = new JLabel("Cadastro De Colaborador");
+		labelCad.setHorizontalAlignment(SwingConstants.CENTER);
 		labelCad.setFont(new Font("Arial", Font.PLAIN, 30));
-		labelCad.setBounds(57, 61, 338, 35);
+		labelCad.setBounds(0, 54, 467, 41);
 		contentPane.add(labelCad);
 		
 		JLabel lblNome = new JLabel("Nome:");
@@ -211,9 +214,12 @@ public class CadastroColaborador extends JFrame {
 		comboAtuacao.setBounds(206, 275, 189, 22);
 		contentPane.add(comboAtuacao);
 		
-		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar = new JButton("Salvar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int result = JOptionPane.showConfirmDialog(null,
+						"Deseja salvar?");
+				if (result == JOptionPane.YES_OPTION) {
 				pessoa.setNome(nomeC.getText());
 				pessoa.setCpf(cpfC.getText());
 				pessoa.setFuncao((String)comboFuncao.getSelectedItem());
@@ -223,13 +229,19 @@ public class CadastroColaborador extends JFrame {
 			
 				try {
 					pessoaC.salvar(pessoa);
-					limpar();				
+					int result2 = JOptionPane.showConfirmDialog(null,
+							"Deseja continuar na tela?");
+					if (result2 == JOptionPane.OK_CANCEL_OPTION) {
+						TelaInicial ti = new TelaInicial();
+						ti.setVisible(true);
+						dispose();
+					}
 					
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					e.printStackTrace();
 				}
-				
+				}
 				
 			}
 		});
@@ -239,26 +251,46 @@ public class CadastroColaborador extends JFrame {
 		botaoEditar = new JButton("Editar");
 		botaoEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int result = JOptionPane.showConfirmDialog(null,
+						"Deseja editar?");
+				if (result == JOptionPane.YES_OPTION) {
 				nomeC.setEnabled(true);
 				comboAtuacao.setEnabled(true);
 				comboFuncao.setEnabled(true);
 				botaoEditar.setVisible(false);
 				btnCadastrar.setVisible(true);
 				btnCadastrar.setText("Alterar");
-				
+				labelCad.setText("Editar Colaborador");
+				}
 			}
 		});
 		botaoEditar.setBounds(351, 428, 91, 23);
 		contentPane.add(botaoEditar);
 		
 		botaoCancelar = new JButton("Cancelar");
+		botaoCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int result = JOptionPane.showConfirmDialog(null,
+						"Deseja cancelar essa ação?");
+				if (result == JOptionPane.YES_OPTION) {
+					PesquisaDeColaborador pc = new PesquisaDeColaborador();
+					pc.listarTodos();
+					pc.setVisible(true);
+				}
+				
+			}
+		});
 		botaoCancelar.setBounds(24, 428, 91, 23);
 		contentPane.add(botaoCancelar);
 		
 		botaoExcluir = new JButton("Excluir");
 		botaoExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int result = JOptionPane.showConfirmDialog(null,
+						"Deseja excluir?");
+				if (result == JOptionPane.YES_OPTION) {
 				pessoaC.remover(Integer.valueOf(idColaborador.getText()));
+				}
 			}
 		});
 		botaoExcluir.setBounds(186, 428, 91, 23);
@@ -267,6 +299,54 @@ public class CadastroColaborador extends JFrame {
 		idColaborador = new JLabel("");
 		idColaborador.setBounds(341, 82, 46, 14);
 		contentPane.add(idColaborador);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int result = JOptionPane.showConfirmDialog(null,
+						"Deseja cancelar?");
+				if (result == JOptionPane.YES_OPTION) {
+					limpar();
+				}
+			}
+		});
+		btnCancelar.setBounds(26, 428, 89, 23);
+		contentPane.add(btnCancelar);
+		
+		botaoSalvar = new JButton("Salvar");
+		botaoSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int result = JOptionPane.showConfirmDialog(null,
+						"Deseja salvar?");
+				if (result == JOptionPane.YES_OPTION) {
+				pessoa.setNome(nomeC.getText());
+				pessoa.setCpf(cpfC.getText());
+				pessoa.setFuncao((String)comboFuncao.getSelectedItem());
+				pessoa.setAreaAtuacao((String)comboAtuacao.getSelectedItem());
+				pessoa.getUsuario().setLogin("a");
+				pessoa.getUsuario().setSenha(00);
+			
+				try {
+					pessoaC.salvar(pessoa);
+					int result2 = JOptionPane.showConfirmDialog(null,
+							"Deseja continuar na tela?");
+					if (result2 == JOptionPane.OK_CANCEL_OPTION) {
+						PesquisaDeColaborador pc=new PesquisaDeColaborador();
+						pc.listarTodos();
+						pc.setVisible(true);
+						dispose();
+						
+					}
+					
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+					e1.printStackTrace();
+				}
+				}
+			}
+		});
+		botaoSalvar.setBounds(353, 428, 89, 23);
+		contentPane.add(botaoSalvar);
 		botaoExcluir.setVisible(false);
 		botaoCancelar.setVisible(false);
 		botaoEditar.setVisible(false);
@@ -289,6 +369,8 @@ public class CadastroColaborador extends JFrame {
 		nomeC.setEnabled(false);
 		comboAtuacao.setEnabled(false);
 		comboFuncao.setEnabled(false);
+		btnCancelar.setVisible(false);
+		
 	}
 	
 	public void limpar(){

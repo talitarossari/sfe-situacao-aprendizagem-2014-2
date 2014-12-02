@@ -46,7 +46,7 @@ public class AgendamentoDeSala extends JFrame {
 	public JLabel lblColaborador;
 	static ListarColaboradores lc = new ListarColaboradores();
 	static ListarSalas salas = new ListarSalas();
-	Intancias instancia;
+	Instancias instancia;
 	public JTextField idColaborador;
 	public JTextField idSala;
 	AgendaDao agendaDao;
@@ -72,7 +72,7 @@ public class AgendamentoDeSala extends JFrame {
 	 * Create the frame.
 	 */
 	public AgendamentoDeSala() {
-		instancia = new Intancias();
+		instancia = new Instancias();
 		agendaC = new AgendaControle();
 		pessoaC = new PessoaControle();
 		agendaDao = new AgendaDao();
@@ -247,6 +247,8 @@ public class AgendamentoDeSala extends JFrame {
 		btnAgendar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
+				int result = JOptionPane.showConfirmDialog(null,"Deseja salvar?");
+				if (result == JOptionPane.YES_OPTION) {
 					pessoa = pessoaC.buscarPorId(Integer.parseInt(idColaborador.getText()));
 					sala = salaC.buscarPorId(Integer.parseInt(idSala.getText()));
 					
@@ -268,20 +270,36 @@ public class AgendamentoDeSala extends JFrame {
 					agenda.setDia((String) comboDia.getSelectedItem());
 					agenda.setMes((String) comboMes.getSelectedItem());
 
+					
+					
 					try {
+						
 						agendaDao.salvar(agenda);
+						
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(null, e.getMessage());
 						e.printStackTrace();
-					}
+					}}
 			
 		}});
 		btnAgendar.setBounds(356, 443, 91, 23);
 		contentPane.add(btnAgendar);
 
 		JButton btnCancela = new JButton("Cancelar");
+		btnCancela.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int result = JOptionPane.showConfirmDialog(null,
+						"Deseja cancelar?");
+				if (result == JOptionPane.YES_OPTION) {
+					limpar();
+				}
+			}
+		
+		});
 		btnCancela.setBounds(24, 443, 91, 23);
 		contentPane.add(btnCancela);
+		
+
 		
 		JButton botaoBuscar = new JButton("Buscar");
 		botaoBuscar.addActionListener(new ActionListener() {

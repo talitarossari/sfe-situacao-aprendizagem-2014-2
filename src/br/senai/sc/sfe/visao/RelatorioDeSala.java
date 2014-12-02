@@ -26,6 +26,7 @@ import br.senai.sc.sfe.controle.AgendaControle;
 import br.senai.sc.sfe.controle.SalaControle;
 import br.senai.sc.sfe.entity.Agenda;
 import br.senai.sc.sfe.entity.Sala;
+import javax.swing.SwingConstants;
 
 public class RelatorioDeSala extends JFrame {
 
@@ -36,6 +37,7 @@ public class RelatorioDeSala extends JFrame {
 	private JComboBox comboMes;
 	private JComboBox comboAno;
 	SalaControle salaC;
+	private DefaultTableModel tableModel = new DefaultTableModel();
 
 	/**
 	 * Launch the application.
@@ -60,14 +62,14 @@ public class RelatorioDeSala extends JFrame {
 		salaC = new SalaControle();
 		setTitle("Salas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 449);
+		setBounds(100, 100, 482, 514);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 442, 21);
+		menuBar.setBounds(0, 0, 466, 21);
 		contentPane.add(menuBar);
 		
 		JMenu mnTelaInicial = new JMenu("Tela Inicial");
@@ -109,7 +111,7 @@ public class RelatorioDeSala extends JFrame {
 		JMenuItem mntmAgendar = new JMenuItem("Agendar");
 		mntmAgendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Intancias instancia = new Intancias();
+				Instancias instancia = new Instancias();
 				instancia.getInstanceAgenda().setVisible(true);
 				dispose();
 			}
@@ -164,8 +166,9 @@ public class RelatorioDeSala extends JFrame {
 		mnSair.add(mntmSair);
 		
 		JLabel lblRelatrioDeSalas = new JLabel("Relat\u00F3rio de Salas");
+		lblRelatrioDeSalas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRelatrioDeSalas.setFont(new Font("Arial", Font.PLAIN, 30));
-		lblRelatrioDeSalas.setBounds(97, 25, 241, 45);
+		lblRelatrioDeSalas.setBounds(0, 25, 466, 45);
 		contentPane.add(lblRelatrioDeSalas);
 		
 		JLabel lblBuscarPor = new JLabel("M\u00EAs:");
@@ -187,42 +190,21 @@ public class RelatorioDeSala extends JFrame {
 		contentPane.add(btnBuscar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 135, 422, 224);
+		scrollPane.setBounds(10, 135, 446, 297);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"Colaborador", "Localiza\u00E7\u00E3o", "Sala", "Data"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		tableModel.addColumn("Código:");
+		tableModel.addColumn("Colaborador:");
+		tableModel.addColumn("Sala:");
+		tableModel.addColumn("Data");
+		tableModel.addColumn("Horário:");
+		table.setModel(tableModel);
 		table.getColumnModel().getColumn(0).setPreferredWidth(131);
 		scrollPane.setViewportView(table);
 		
 		JButton btnNewButton = new JButton("Imprimir");
-		btnNewButton.setBounds(341, 370, 91, 22);
+		btnNewButton.setBounds(365, 443, 91, 22);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Limpar");
@@ -231,7 +213,7 @@ public class RelatorioDeSala extends JFrame {
 				limpar();
 			}
 		});
-		btnNewButton_1.setBounds(11, 370, 91, 23);
+		btnNewButton_1.setBounds(10, 443, 91, 23);
 		contentPane.add(btnNewButton_1);
 		
 		JLabel lblAno = new JLabel("Ano:");
